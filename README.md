@@ -9,7 +9,7 @@ React + Babel in-browser (no build step). Everything is a static asset.
 - Portfolio page (3 sample categories, keyboard-navigable lightbox)
 - Booking form (date / time picker, service selector, add-ons) — stepper or single-page
 - Basic admin panel (overview, bookings, services CRUD, availability calendar, clients)
-- Payment gateway sandbox UI (Paystack / Flutterwave selector, card → 3-D Secure OTP)
+- Payment gateway sandbox UI (Stripe / Paystack selector, card → 3-D Secure OTP)
 - Email notification stub (rendered email mockup, SendGrid-style)
 - Client account creation, login, and dashboard
 
@@ -111,7 +111,7 @@ vercel.json           static site config
 ## Next steps for production
 
 1. Move state to a backend (Supabase / Firebase / custom Node API)
-2. Wire real Paystack/Flutterwave server-side init + webhook for confirmation
+2. Wire real Stripe/Paystack server-side init + webhook for confirmation
 3. Wire SendGrid (or Resend) with a proper template
 4. Move React + JSX off in-browser Babel — use Vite or Next.js
 5. Add real auth (Clerk, Auth0, or NextAuth)

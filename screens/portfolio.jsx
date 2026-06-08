@@ -2,9 +2,9 @@
 const PORTFOLIO = [
   { id: 1, cat: "portraits", label: "folake · 2025", aspect: "4/5" },
   { id: 2, cat: "portraits", label: "ada · home series", aspect: "3/4" },
-  { id: 3, cat: "portraits", label: "tunde · ikoyi", aspect: "1/1" },
+  { id: 3, cat: "portraits", label: "tom · peckham", aspect: "1/1" },
   { id: 4, cat: "editorial", label: "iron & velvet · vogue", aspect: "3/4" },
-  { id: 5, cat: "editorial", label: "lagos fw · backstage", aspect: "4/5" },
+  { id: 5, cat: "editorial", label: "london fw · backstage", aspect: "4/5" },
   { id: 6, cat: "editorial", label: "onile ss26", aspect: "16/9" },
   { id: 7, cat: "weddings", label: "tunde & ada", aspect: "4/5" },
   { id: 8, cat: "weddings", label: "kemi & ola · oniru", aspect: "3/4" },

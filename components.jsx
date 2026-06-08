@@ -87,16 +87,16 @@ function Footer() {
         <div>
           <Logo size={28} />
           <p style={{ marginTop: 18, maxWidth: 320, color: "var(--muted)", fontSize: 14 }}>
-            A photography studio in Lagos crafting portraits, editorial, and brand imagery with a steady hand and a soft eye.
+            A London photography studio crafting portraits, editorial, and brand imagery for West African and Western families alike — a steady hand and a soft eye.
           </p>
         </div>
         <FooterCol title="Studio" links={["About", "Journal", "Press", "Careers"]} />
         <FooterCol title="Services" links={["Portraits", "Editorial", "Weddings", "Commercial"]} />
-        <FooterCol title="Contact" links={["hello@ayofemi.studio", "+234 802 000 0000", "12 Awolowo Rd, Ikoyi"]} />
+        <FooterCol title="Contact" links={["hello@ayofemi.studio", "+44 20 7946 0102", "Unit 4, Rye Lane, Peckham, London SE15"]} />
       </div>
       <div style={{ borderTop: "1px solid var(--line)", padding: "18px 32px", maxWidth: 1400, margin: "0 auto", display: "flex", justifyContent: "space-between", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--muted)" }}>
         <span>© 2026 Ayofemi Studios</span>
-        <span>Lagos · Accra · Worldwide</span>
+        <span>London · Lagos · Accra</span>
       </div>
     </footer>
   );
@@ -143,7 +143,8 @@ function Tag({ children, active, onClick }) {
 }
 
 // ─── Currency formatter ───────────────────────────────────────────────────
-const formatNaira = (n) => "₦" + n.toLocaleString("en-NG");
+// Studio prices are GBP; helper name kept for compatibility across screens.
+const formatNaira = (n) => "£" + n.toLocaleString("en-GB");
 
 // ─── Toast ────────────────────────────────────────────────────────────────
 function Toast({ toast }) {

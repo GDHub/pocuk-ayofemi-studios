@@ -1,17 +1,17 @@
 /* Ayofemi Studios — Booking flow (stepper + single-page variants) */
 
 const SERVICES_CATALOG = [
-  { id: "portrait", title: "Portrait sitting", duration: "1.5 hours", price: 75000, desc: "Studio sitting with up to 30 edited frames", colorTag: "portrait" },
-  { id: "couples", title: "Couple's portraits", duration: "2 hours", price: 110000, desc: "Two looks, on location or in studio", colorTag: "couples" },
-  { id: "editorial", title: "Editorial commission", duration: "Half day", price: 250000, desc: "Concept, styling consult, full creative direction", colorTag: "editorial" },
-  { id: "commercial", title: "Commercial / lookbook", duration: "Half / full day", price: 350000, desc: "Lookbook, product, or campaign photography", colorTag: "commercial" },
-  { id: "wedding", title: "Wedding coverage", duration: "Full day", price: 600000, desc: "From the prep room to the last dance", colorTag: "wedding" },
+  { id: "portrait", title: "Portrait sitting", duration: "1.5 hours", price: 180, desc: "Studio sitting with up to 30 edited frames", colorTag: "portrait" },
+  { id: "couples", title: "Couple's portraits", duration: "2 hours", price: 280, desc: "Two looks, on location or in studio", colorTag: "couples" },
+  { id: "editorial", title: "Editorial commission", duration: "Half day", price: 650, desc: "Concept, styling consult, full creative direction", colorTag: "editorial" },
+  { id: "commercial", title: "Commercial / lookbook", duration: "Half / full day", price: 900, desc: "Lookbook, product, or campaign photography", colorTag: "commercial" },
+  { id: "wedding", title: "Wedding coverage", duration: "Full day", price: 1950, desc: "From the prep room to the last dance", colorTag: "wedding" },
 ];
 
 const ADDONS = [
-  { id: "rush", title: "Rush delivery", desc: "Final selects in 72 hours", price: 35000 },
-  { id: "makeup", title: "Hair & makeup", desc: "On-set artist for 2 hours", price: 45000 },
-  { id: "prints", title: "Archival prints", desc: "Three 8×10 museum prints", price: 28000 },
+  { id: "rush", title: "Rush delivery", desc: "Final selects in 72 hours", price: 90 },
+  { id: "makeup", title: "Hair & makeup", desc: "On-set artist for 2 hours", price: 140 },
+  { id: "prints", title: "Archival prints", desc: "Three 8×10 museum prints", price: 75 },
 ];
 
 function nextDays(n) {
@@ -362,7 +362,7 @@ function StepDetails({ booking, setBooking, user }) {
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
       <Field label="Full name" value={booking.name || ""} onChange={v => setBooking({ ...booking, name: v })} placeholder="Ayọkunle Adeyemi" />
       <Field label="Email" type="email" value={booking.email || ""} onChange={v => setBooking({ ...booking, email: v })} placeholder="you@example.com" />
-      <Field label="Phone" value={booking.phone || ""} onChange={v => setBooking({ ...booking, phone: v })} placeholder="+234 8XX XXX XXXX" />
+      <Field label="Phone" value={booking.phone || ""} onChange={v => setBooking({ ...booking, phone: v })} placeholder="+44 7XXX XXX XXX" />
       <Field label="How did you hear about us?" value={booking.referral || ""} onChange={v => setBooking({ ...booking, referral: v })} placeholder="Instagram, a friend, our journal..." />
       <div style={{ gridColumn: "1 / -1" }}>
         <Field label="Notes for the studio" textarea value={booking.notes || ""} onChange={v => setBooking({ ...booking, notes: v })}
@@ -436,7 +436,7 @@ function BookingSummary({ booking, total, sticky }) {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
           <span className="mono" style={{ color: "var(--muted)" }}>Total</span>
-          <span className="display" style={{ fontSize: 36 }}>{total ? formatNaira(total) : "₦0"}</span>
+          <span className="display" style={{ fontSize: 36 }}>{total ? formatNaira(total) : "£0"}</span>
         </div>
 
         <div style={{ marginTop: 24, padding: 14, background: "var(--paper-2)", borderRadius: 4, fontSize: 12, color: "var(--muted)", lineHeight: 1.55 }}>

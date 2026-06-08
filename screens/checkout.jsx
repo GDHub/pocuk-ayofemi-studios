@@ -2,7 +2,7 @@
 
 function CheckoutScreen() {
   const { booking, setBookings, bookings, go, setToast, user } = useApp();
-  const [gateway, setGateway] = React.useState("paystack");
+  const [gateway, setGateway] = React.useState("stripe");
   const [card, setCard] = React.useState({ number: "4084 0840 8408 4081", expiry: "09/27", cvv: "408", name: user?.name || "" });
   const [phase, setPhase] = React.useState("form"); // form | processing | otp | done
   const [otp, setOtp] = React.useState("");
@@ -46,8 +46,8 @@ function CheckoutScreen() {
             <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>Payment gateway</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {[
-                { id: "paystack", name: "Paystack", sub: "Cards · Bank · USSD" },
-                { id: "flutterwave", name: "Flutterwave", sub: "Cards · Mobile money" },
+                { id: "stripe", name: "Stripe", sub: "Cards · Apple Pay · Google Pay" },
+                { id: "paystack", name: "Paystack", sub: "Cards · Bank · Transfer" },
               ].map(g => (
                 <button key={g.id} onClick={() => setGateway(g.id)}
                   style={{
@@ -95,7 +95,7 @@ function CheckoutScreen() {
             {phase === "processing" && (
               <div style={{ padding: "60px 0", textAlign: "center" }}>
                 <div className="spinner" style={{ width: 32, height: 32, borderWidth: 3, color: "var(--primary)" }}></div>
-                <div className="display" style={{ fontSize: 28, marginTop: 24 }}>Talking to {gateway === "paystack" ? "Paystack" : "Flutterwave"}…</div>
+                <div className="display" style={{ fontSize: 28, marginTop: 24 }}>Talking to {gateway === "stripe" ? "Stripe" : "Paystack"}…</div>
                 <div className="mono" style={{ color: "var(--muted)", marginTop: 8 }}>● Sandbox transaction in flight</div>
               </div>
             )}
@@ -151,7 +151,7 @@ function CheckoutScreen() {
 
             <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
               <Line label="Subtotal" value={formatNaira(booking.total || 0)} />
-              <Line label="VAT (7.5%)" value="Included" muted />
+              <Line label="VAT (20%)" value="Included" muted />
               <Line label="Deposit (30%)" value={formatNaira(deposit)} bold />
               <Line label="Balance due at session" value={formatNaira((booking.total || 0) - deposit)} muted />
             </div>
