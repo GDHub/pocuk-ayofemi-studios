@@ -24,7 +24,7 @@ function AuthScreen() {
 
   return (
     <div className="fade-in" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "calc(100vh - 60px)" }}>
-      <div className="placeholder" data-label="studio · ikoyi · 04:00pm" style={{ minHeight: 600 }}></div>
+      <div className="placeholder" data-label="studio · peckham · 04:00pm" style={{ minHeight: 600 }}></div>
 
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "60px 80px" }}>
         <div style={{ maxWidth: 420, width: "100%", margin: "0 auto" }}>

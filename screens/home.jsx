@@ -22,7 +22,7 @@ function HeroEditorial({ onCta }) {
   const { go } = useApp();
   return (
     <section style={{ maxWidth: 1400, margin: "0 auto", padding: "80px 32px 120px" }}>
-      <div className="mono" style={{ color: "var(--muted)", marginBottom: 40 }}>● Lagos · est. 2019 · portraits & editorial</div>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 40 }}>● London · est. 2019 · West African & Western portraiture</div>
       <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 48, alignItems: "end" }}>
         <h1 className="display" style={{ fontSize: "clamp(72px, 11vw, 168px)", margin: 0, letterSpacing: "-0.03em" }}>
           Light, <span style={{ fontStyle: "italic", color: "var(--primary)" }}>held</span><br />
@@ -31,7 +31,7 @@ function HeroEditorial({ onCta }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           <div className="placeholder" data-label="hero portrait · 4:5" style={{ aspectRatio: "4/5", borderRadius: 6 }}></div>
           <p style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380, margin: 0 }}>
-            We make pictures that hold up — portraits, editorial commissions, and brand stories shot on film and digital from our atelier in Ikoyi.
+            We make pictures that hold up — portraits, editorial commissions, and brand stories for West African and Western families alike, shot on film and digital from our atelier in Peckham, south London.
           </p>
           <div style={{ display: "flex", gap: 10 }}>
             <button onClick={onCta} className="btn btn-primary btn-lg">Book a session</button>
@@ -50,12 +50,12 @@ function HeroSplit({ onCta }) {
     <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "calc(100vh - 60px)", borderBottom: "1px solid var(--line)" }}>
       <div className="placeholder" data-label="hero · full bleed" style={{ minHeight: 600 }}></div>
       <div style={{ padding: "80px 64px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 32 }}>
-        <div className="mono" style={{ color: "var(--muted)" }}>● Ayofemi Studios · Lagos</div>
+        <div className="mono" style={{ color: "var(--muted)" }}>● Ayofemi Studios · London</div>
         <h1 className="display" style={{ fontSize: "clamp(56px, 7vw, 104px)", margin: 0 }}>
           A studio for the<br /><span style={{ fontStyle: "italic", color: "var(--primary)" }}>still </span>and the<br />unsayable.
         </h1>
         <p style={{ fontSize: 17, lineHeight: 1.6, maxWidth: 460 }}>
-          Portraits, editorial, weddings, and brand work — shot with intention by Ayofemi Adeyemi and a small, considered team.
+          Portraits, editorial, weddings, and brand work for West African and Western communities — shot with intention by Ayofemi Adeyemi and a small, considered team.
         </p>
         <div style={{ display: "flex", gap: 10 }}>
           <button onClick={onCta} className="btn btn-primary btn-lg">Book a session →</button>
@@ -85,7 +85,7 @@ function HeroMarquee({ onCta }) {
   return (
     <section style={{ padding: "80px 0 60px", textAlign: "center" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
-        <div className="mono" style={{ color: "var(--muted)", marginBottom: 32 }}>● Photography · Lagos · Worldwide</div>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 32 }}>● Photography · London · West Africa · Worldwide</div>
         <h1 className="display" style={{ fontSize: "clamp(80px, 13vw, 200px)", margin: 0, letterSpacing: "-0.04em", lineHeight: 0.88 }}>
           We photograph <span style={{ fontStyle: "italic", color: "var(--primary)" }}>quietly,</span><br />
           on purpose.
@@ -112,10 +112,12 @@ function HeroMarquee({ onCta }) {
 function ServicesStrip() {
   const { goWithService } = useApp();
   const services = [
-    { id: "portrait", num: "01", title: "Portraits", desc: "Studio sittings, headshots, and intimate sessions on film or digital.", from: 75000 },
-    { id: "editorial", num: "02", title: "Editorial", desc: "Magazine commissions and brand editorials with full creative direction.", from: 250000 },
-    { id: "wedding", num: "03", title: "Weddings", desc: "Documentary coverage from quiet rooms to the loudest dance floor.", from: 600000 },
-    { id: "commercial", num: "04", title: "Commercial", desc: "Lookbooks, product, and campaign photography for considered brands.", from: 350000 },
+    { id: "wedding-half", num: "01", title: "Weddings", desc: "Half day, full day, and luxury packages — prep room to last dance.", from: 800 },
+    { id: "portrait", num: "02", title: "Portraits", desc: "Studio sittings, graduations, and headshots on film or digital.", from: 150 },
+    { id: "family", num: "03", title: "Family & maternity", desc: "Relaxed family, maternity, and milestone sessions for all ages.", from: 180 },
+    { id: "event", num: "04", title: "Events", desc: "Birthdays, socials, and gatherings captured as they unfold.", from: 350 },
+    { id: "corporate-event", num: "05", title: "Corporate", desc: "Conferences, headshots, and brand events for considered teams.", from: 500 },
+    { id: "product", num: "06", title: "Product", desc: "E-commerce, catalogue, and campaign photography, per image.", from: 15 },
   ];
   return (
     <section style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px" }}>
@@ -155,7 +157,7 @@ function FeaturedWork() {
       />
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridTemplateRows: "320px 320px", gap: 16 }}>
         <div className="placeholder" data-label="folake · portrait · 2025" style={{ gridRow: "1 / 3" }}></div>
-        <div className="placeholder" data-label="lagos fashion week"></div>
+        <div className="placeholder" data-label="london fashion week"></div>
         <div className="placeholder" data-label="brand · onile"></div>
         <div className="placeholder" data-label="tunde & ada · wedding"></div>
         <div className="placeholder" data-label="series · iron & velvet"></div>

@@ -3,13 +3,261 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ayofemi Studios — Photography, Lagos</title>
+<title>Ayofemi Studios — Photography, London</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Work+Sans:wght@400;500;600&display=swap" />
 
-<link rel="stylesheet" href="styles.css" />
+<style>
+/* Ayofemi Studios — Design tokens & base */
+
+:root {
+  /* PALETTE: OXBLOOD (default) */
+  --ink: oklch(0.18 0.02 30);
+  --paper: oklch(0.96 0.015 75);
+  --paper-2: oklch(0.92 0.02 75);
+  --paper-3: oklch(0.88 0.025 75);
+  --primary: oklch(0.32 0.11 25);
+  --primary-ink: oklch(0.96 0.015 75);
+  --accent: oklch(0.68 0.16 55);
+  --muted: oklch(0.45 0.02 30);
+  --line: oklch(0.85 0.02 75);
+  --shadow: 0 1px 0 oklch(0.85 0.02 75 / 0.7);
+
+  /* TYPE */
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-body: "DM Sans", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* PALETTE: MIDNIGHT */
+[data-palette="midnight"] {
+  --ink: oklch(0.94 0.01 80);
+  --paper: oklch(0.16 0.015 250);
+  --paper-2: oklch(0.21 0.02 250);
+  --paper-3: oklch(0.26 0.02 250);
+  --primary: oklch(0.88 0.07 75);
+  --primary-ink: oklch(0.16 0.015 250);
+  --accent: oklch(0.72 0.18 25);
+  --muted: oklch(0.65 0.02 250);
+  --line: oklch(0.3 0.02 250);
+  --shadow: 0 1px 0 oklch(0.3 0.02 250 / 0.6);
+}
+
+/* PALETTE: OCHRE */
+[data-palette="ochre"] {
+  --ink: oklch(0.22 0.03 60);
+  --paper: oklch(0.94 0.025 85);
+  --paper-2: oklch(0.89 0.03 85);
+  --paper-3: oklch(0.84 0.04 85);
+  --primary: oklch(0.65 0.13 65);
+  --primary-ink: oklch(0.18 0.02 60);
+  --accent: oklch(0.45 0.1 160);
+  --muted: oklch(0.45 0.03 60);
+  --line: oklch(0.82 0.04 85);
+}
+
+/* DARK MODE — applies to whichever palette is active */
+[data-mode="dark"] {
+  --ink: oklch(0.95 0.015 80);
+  --paper: oklch(0.14 0.012 30);
+  --paper-2: oklch(0.18 0.015 30);
+  --paper-3: oklch(0.22 0.02 30);
+  --muted: oklch(0.68 0.02 30);
+  --line: oklch(0.28 0.02 30);
+}
+[data-mode="dark"][data-palette="oxblood"] {
+  --primary: oklch(0.55 0.14 25);
+  --primary-ink: oklch(0.96 0.015 75);
+  --accent: oklch(0.75 0.16 60);
+}
+[data-mode="dark"][data-palette="ochre"] {
+  --primary: oklch(0.72 0.14 65);
+  --primary-ink: oklch(0.16 0.012 60);
+  --accent: oklch(0.7 0.12 160);
+}
+
+/* FONT PAIRINGS */
+[data-fonts="editorial"] {
+  --font-display: "Instrument Serif", serif;
+  --font-body: "DM Sans", sans-serif;
+}
+[data-fonts="modernist"] {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+}
+[data-fonts="classical"] {
+  --font-display: "Playfair Display", serif;
+  --font-body: "Work Sans", sans-serif;
+}
+
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+input, textarea, select { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* TYPE UTILITIES */
+.display { font-family: var(--font-display); font-weight: 400; line-height: 0.92; letter-spacing: -0.02em; }
+.mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.italic { font-style: italic; }
+
+/* STRIPED PLACEHOLDER */
+.placeholder {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--paper-2) 0,
+      var(--paper-2) 12px,
+      var(--paper-3) 12px,
+      var(--paper-3) 24px
+    );
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.placeholder::after {
+  content: attr(data-label);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 4px 8px;
+  margin: 10px;
+  border: 1px solid var(--line);
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+.btn-primary:hover { background: var(--ink); color: var(--paper); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-dark:hover { background: var(--primary); color: var(--primary-ink); }
+.btn-sm { padding: 9px 14px; font-size: 12px; }
+.btn-lg { padding: 18px 28px; font-size: 15px; }
+
+/* INPUTS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  color: var(--ink);
+  width: 100%;
+}
+.input:focus { border-bottom-color: var(--ink); }
+.input::placeholder { color: var(--muted); opacity: 0.6; }
+.input-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+}
+.input-box:focus { border-color: var(--ink); }
+
+textarea.input { resize: vertical; min-height: 80px; }
+
+/* CARD */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* MISC */
+.divider {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fadeIn 0.4s ease both; }
+
+/* APP LAYOUT */
+#app { min-height: 100vh; display: flex; flex-direction: column; }
+.app-shell { flex: 1; display: flex; flex-direction: column; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* SELECTION */
+::selection { background: var(--primary); color: var(--primary-ink); }
+
+</style>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -18,16 +266,2559 @@
 <body>
 <div id="app"></div>
 
-<script type="text/babel" data-presets="react" src="tweaks-panel.jsx"></script>
-<script type="text/babel" data-presets="react" src="components.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/home.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/portfolio.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/booking.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/auth.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/dashboard.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/admin.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/checkout.jsx"></script>
-<script type="text/babel" data-presets="react" src="screens/confirmation.jsx"></script>
-<script type="text/babel" data-presets="react" src="app.jsx"></script>
+<script type="text/babel" data-presets="react" data-src="tweaks-panel.jsx">
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<script type="text/babel" data-presets="react" data-src="components.jsx">
+/* Ayofemi Studios — Shared components */
+const { useState, useEffect, useRef, useMemo, createContext, useContext } = React;
+
+// ─── App context (router + auth + bookings) ───────────────────────────────
+const AppContext = createContext(null);
+const useApp = () => useContext(AppContext);
+
+// ─── Logo ─────────────────────────────────────────────────────────────────
+function Logo({ size = 22 }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: size, fontFamily: "var(--font-display)", lineHeight: 1, letterSpacing: "-0.02em" }}>
+      <span style={{ fontStyle: "italic" }}>Ayọ</span>
+      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--primary)" }}></span>
+      <span>femi</span>
+      <span style={{ fontFamily: "var(--font-mono)", fontSize: size * 0.36, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--muted)", marginLeft: 4, marginTop: 4 }}>Studios</span>
+    </div>
+  );
+}
+
+// ─── Top Nav ──────────────────────────────────────────────────────────────
+function NavBar() {
+  const { route, go, user, signOut } = useApp();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const links = [
+    { id: "home", label: "Home" },
+    { id: "portfolio", label: "Portfolio" },
+    { id: "booking", label: "Book" },
+  ];
+
+  return (
+    <header style={{
+      position: "sticky", top: 0, zIndex: 40,
+      background: "color-mix(in oklch, var(--paper) 88%, transparent)",
+      backdropFilter: "blur(12px)",
+      borderBottom: "1px solid var(--line)",
+    }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+        <button onClick={() => go("home")} aria-label="Home" style={{ display: "flex", alignItems: "center" }}>
+          <Logo size={22} />
+        </button>
+
+        <nav className="nav-links" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+          {links.map(l => (
+            <button key={l.id} onClick={() => go(l.id)}
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                color: route === l.id ? "var(--ink)" : "var(--muted)",
+                position: "relative",
+                paddingBottom: 4,
+                borderBottom: route === l.id ? "1px solid var(--ink)" : "1px solid transparent",
+                transition: "color 0.2s, border-color 0.2s",
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = "var(--ink)"}
+              onMouseLeave={(e) => e.currentTarget.style.color = route === l.id ? "var(--ink)" : "var(--muted)"}
+            >{l.label}</button>
+          ))}
+        </nav>
+
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          {user ? (
+            <>
+              <button onClick={() => go("dashboard")} className="btn btn-ghost btn-sm">
+                <span style={{ width: 22, height: 22, borderRadius: "50%", background: "var(--primary)", color: "var(--primary-ink)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 600 }}>{user.name[0].toUpperCase()}</span>
+                {user.name.split(" ")[0]}
+              </button>
+              {user.isAdmin && <button onClick={() => go("admin")} className="btn btn-ghost btn-sm">Admin</button>}
+            </>
+          ) : (
+            <>
+              <button onClick={() => go("auth")} className="btn btn-ghost btn-sm">Sign in</button>
+              <button onClick={() => go("booking")} className="btn btn-primary btn-sm">Book a session →</button>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer style={{ borderTop: "1px solid var(--line)", marginTop: 80 }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px 40px", display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40 }}>
+        <div>
+          <Logo size={28} />
+          <p style={{ marginTop: 18, maxWidth: 320, color: "var(--muted)", fontSize: 14 }}>
+            A London photography studio crafting portraits, editorial, and brand imagery for West African and Western families alike — a steady hand and a soft eye.
+          </p>
+        </div>
+        <FooterCol title="Studio" links={["About", "Journal", "Press", "Careers"]} />
+        <FooterCol title="Services" links={["Portraits", "Editorial", "Weddings", "Commercial"]} />
+        <FooterCol title="Contact" links={["hello@ayofemi.studio", "+44 20 7946 0102", "Unit 4, Rye Lane, Peckham, London SE15"]} />
+      </div>
+      <div style={{ borderTop: "1px solid var(--line)", padding: "18px 32px", maxWidth: 1400, margin: "0 auto", display: "flex", justifyContent: "space-between", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--muted)" }}>
+        <span>© 2026 Ayofemi Studios</span>
+        <span>London · Lagos · Accra</span>
+      </div>
+    </footer>
+  );
+}
+function FooterCol({ title, links }) {
+  return (
+    <div>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 14 }}>{title}</div>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+        {links.map(l => <li key={l} style={{ fontSize: 14 }}>{l}</li>)}
+      </ul>
+    </div>
+  );
+}
+
+// ─── Section header ───────────────────────────────────────────────────────
+function SectionHead({ kicker, title, right }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 32, gap: 24, flexWrap: "wrap" }}>
+      <div>
+        {kicker && <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● {kicker}</div>}
+        <h2 className="display" style={{ fontSize: "clamp(40px, 5vw, 64px)", margin: 0 }}>{title}</h2>
+      </div>
+      {right}
+    </div>
+  );
+}
+
+// ─── Tag / Pill ───────────────────────────────────────────────────────────
+function Tag({ children, active, onClick }) {
+  return (
+    <button onClick={onClick} style={{
+      padding: "8px 14px",
+      borderRadius: 999,
+      border: `1px solid ${active ? "var(--ink)" : "var(--line)"}`,
+      background: active ? "var(--ink)" : "transparent",
+      color: active ? "var(--paper)" : "var(--ink)",
+      fontSize: 12,
+      fontWeight: 500,
+      cursor: "pointer",
+      transition: "all 0.18s ease",
+    }}>{children}</button>
+  );
+}
+
+// ─── Currency formatter ───────────────────────────────────────────────────
+// Studio prices are GBP; helper name kept for compatibility across screens.
+const formatNaira = (n) => "£" + n.toLocaleString("en-GB");
+
+// ─── Toast ────────────────────────────────────────────────────────────────
+function Toast({ toast }) {
+  if (!toast) return null;
+  return (
+    <div className="fade-in" style={{
+      position: "fixed", bottom: 24, left: "50%", transform: "translateX(-50%)",
+      background: "var(--ink)", color: "var(--paper)", padding: "12px 20px",
+      borderRadius: 999, fontSize: 13, fontWeight: 500, zIndex: 100,
+      display: "flex", alignItems: "center", gap: 10,
+      boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+    }}>
+      <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--accent)" }}></span>
+      {toast}
+    </div>
+  );
+}
+
+Object.assign(window, {
+  AppContext, useApp,
+  Logo, NavBar, Footer, FooterCol,
+  SectionHead, Tag, Toast, formatNaira,
+});
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/home.jsx">
+/* Ayofemi Studios — Home screen with hero variants */
+const { useState: useStateH } = React;
+
+function HomeScreen({ heroVariant = "editorial" }) {
+  const { go } = useApp();
+  return (
+    <div className="fade-in">
+      {heroVariant === "editorial" && <HeroEditorial onCta={() => go("booking")} />}
+      {heroVariant === "split" && <HeroSplit onCta={() => go("booking")} />}
+      {heroVariant === "marquee" && <HeroMarquee onCta={() => go("booking")} />}
+
+      <ServicesStrip />
+      <FeaturedWork />
+      <Testimonial />
+      <BookCallout />
+    </div>
+  );
+}
+
+// ── Variant 1: Editorial (oversized type, single image right)
+function HeroEditorial({ onCta }) {
+  const { go } = useApp();
+  return (
+    <section style={{ maxWidth: 1400, margin: "0 auto", padding: "80px 32px 120px" }}>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 40 }}>● London · est. 2019 · West African & Western portraiture</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 48, alignItems: "end" }}>
+        <h1 className="display" style={{ fontSize: "clamp(72px, 11vw, 168px)", margin: 0, letterSpacing: "-0.03em" }}>
+          Light, <span style={{ fontStyle: "italic", color: "var(--primary)" }}>held</span><br />
+          like a quiet<br />promise.
+        </h1>
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          <div className="placeholder" data-label="hero portrait · 4:5" style={{ aspectRatio: "4/5", borderRadius: 6 }}></div>
+          <p style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380, margin: 0 }}>
+            We make pictures that hold up — portraits, editorial commissions, and brand stories for West African and Western families alike, shot on film and digital from our atelier in Peckham, south London.
+          </p>
+          <div style={{ display: "flex", gap: 10 }}>
+            <button onClick={onCta} className="btn btn-primary btn-lg">Book a session</button>
+            <button onClick={go.bind(null, "portfolio")} className="btn btn-ghost btn-lg">See the work</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Variant 2: Split (full-bleed image left, copy right)
+function HeroSplit({ onCta }) {
+  const { go } = useApp();
+  return (
+    <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "calc(100vh - 60px)", borderBottom: "1px solid var(--line)" }}>
+      <div className="placeholder" data-label="hero · full bleed" style={{ minHeight: 600 }}></div>
+      <div style={{ padding: "80px 64px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 32 }}>
+        <div className="mono" style={{ color: "var(--muted)" }}>● Ayofemi Studios · London</div>
+        <h1 className="display" style={{ fontSize: "clamp(56px, 7vw, 104px)", margin: 0 }}>
+          A studio for the<br /><span style={{ fontStyle: "italic", color: "var(--primary)" }}>still </span>and the<br />unsayable.
+        </h1>
+        <p style={{ fontSize: 17, lineHeight: 1.6, maxWidth: 460 }}>
+          Portraits, editorial, weddings, and brand work for West African and Western communities — shot with intention by Ayofemi Adeyemi and a small, considered team.
+        </p>
+        <div style={{ display: "flex", gap: 10 }}>
+          <button onClick={onCta} className="btn btn-primary btn-lg">Book a session →</button>
+          <button onClick={() => go("portfolio")} className="btn btn-ghost btn-lg">View portfolio</button>
+        </div>
+        <div style={{ display: "flex", gap: 40, marginTop: 16, paddingTop: 24, borderTop: "1px solid var(--line)" }}>
+          <Stat label="Years" value="07" />
+          <Stat label="Sessions" value="412" />
+          <Stat label="Editorials" value="38" />
+        </div>
+      </div>
+    </section>
+  );
+}
+function Stat({ label, value }) {
+  return (
+    <div>
+      <div className="display" style={{ fontSize: 44 }}>{value}</div>
+      <div className="mono" style={{ color: "var(--muted)", marginTop: 4 }}>{label}</div>
+    </div>
+  );
+}
+
+// ── Variant 3: Marquee (large centered headline + scrolling images)
+function HeroMarquee({ onCta }) {
+  const { go } = useApp();
+  return (
+    <section style={{ padding: "80px 0 60px", textAlign: "center" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 32 }}>● Photography · London · West Africa · Worldwide</div>
+        <h1 className="display" style={{ fontSize: "clamp(80px, 13vw, 200px)", margin: 0, letterSpacing: "-0.04em", lineHeight: 0.88 }}>
+          We photograph <span style={{ fontStyle: "italic", color: "var(--primary)" }}>quietly,</span><br />
+          on purpose.
+        </h1>
+        <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 40 }}>
+          <button onClick={onCta} className="btn btn-primary btn-lg">Book a session</button>
+          <button onClick={() => go("portfolio")} className="btn btn-ghost btn-lg">See the work</button>
+        </div>
+      </div>
+      <div style={{ marginTop: 64, overflow: "hidden", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "32px 0" }}>
+        <div style={{ display: "flex", gap: 24, animation: "marquee 40s linear infinite", width: "max-content" }}>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="placeholder" data-label={`frame ${String(i+1).padStart(2, "0")}`}
+              style={{ width: 320, height: 380, flexShrink: 0, borderRadius: 4 }}></div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes marquee { to { transform: translateX(-50%); } }`}</style>
+    </section>
+  );
+}
+
+// ── Services strip ───────────────────────────────────────────────────────
+function ServicesStrip() {
+  const { goWithService } = useApp();
+  const services = [
+    { id: "wedding-half", num: "01", title: "Weddings", desc: "Half day, full day, and luxury packages — prep room to last dance.", from: 800 },
+    { id: "portrait", num: "02", title: "Portraits", desc: "Studio sittings, graduations, and headshots on film or digital.", from: 150 },
+    { id: "family", num: "03", title: "Family & maternity", desc: "Relaxed family, maternity, and milestone sessions for all ages.", from: 180 },
+    { id: "event", num: "04", title: "Events", desc: "Birthdays, socials, and gatherings captured as they unfold.", from: 350 },
+    { id: "corporate-event", num: "05", title: "Corporate", desc: "Conferences, headshots, and brand events for considered teams.", from: 500 },
+    { id: "product", num: "06", title: "Product", desc: "E-commerce, catalogue, and campaign photography, per image.", from: 15 },
+  ];
+  return (
+    <section style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px" }}>
+      <SectionHead kicker="Services" title="What we make" />
+      <div style={{ borderTop: "1px solid var(--line)" }}>
+        {services.map(s => (
+          <button key={s.id} onClick={() => goWithService(s.id)}
+            style={{
+              width: "100%", display: "grid", gridTemplateColumns: "60px 1fr 2fr 200px 80px",
+              gap: 24, alignItems: "center", padding: "28px 0", borderBottom: "1px solid var(--line)",
+              cursor: "pointer", textAlign: "left", transition: "padding 0.25s ease, background 0.25s ease",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.paddingLeft = "16px"; e.currentTarget.style.background = "var(--paper-2)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.paddingLeft = "0"; e.currentTarget.style.background = "transparent"; }}
+          >
+            <span className="display" style={{ fontSize: 28, color: "var(--muted)" }}>{s.num}</span>
+            <span className="display" style={{ fontSize: 36 }}>{s.title}</span>
+            <span style={{ color: "var(--muted)", fontSize: 14, maxWidth: 380 }}>{s.desc}</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>From {formatNaira(s.from)}</span>
+            <span style={{ fontSize: 20 }}>→</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ── Featured work ────────────────────────────────────────────────────────
+function FeaturedWork() {
+  const { go } = useApp();
+  return (
+    <section style={{ maxWidth: 1400, margin: "0 auto", padding: "80px 32px" }}>
+      <SectionHead
+        kicker="Selected work"
+        title="Recent frames"
+        right={<button onClick={() => go("portfolio")} className="btn btn-ghost">All work →</button>}
+      />
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridTemplateRows: "320px 320px", gap: 16 }}>
+        <div className="placeholder" data-label="folake · portrait · 2025" style={{ gridRow: "1 / 3" }}></div>
+        <div className="placeholder" data-label="london fashion week"></div>
+        <div className="placeholder" data-label="brand · onile"></div>
+        <div className="placeholder" data-label="tunde & ada · wedding"></div>
+        <div className="placeholder" data-label="series · iron & velvet"></div>
+      </div>
+    </section>
+  );
+}
+
+// ── Testimonial ──────────────────────────────────────────────────────────
+function Testimonial() {
+  return (
+    <section style={{ background: "var(--ink)", color: "var(--paper)", padding: "120px 32px", marginTop: 40 }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
+        <div className="mono" style={{ color: "color-mix(in oklch, var(--paper) 60%, transparent)", marginBottom: 32 }}>● A word from the studio</div>
+        <p className="display" style={{ fontSize: "clamp(32px, 4vw, 56px)", lineHeight: 1.15, margin: 0, fontStyle: "italic" }}>
+          "Ayofemi sees something in a room before anyone else does. The pictures she gave us still surprise me three years on."
+        </p>
+        <div style={{ marginTop: 40, fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "color-mix(in oklch, var(--paper) 70%, transparent)" }}>
+          Folake Okonkwo · creative director, Onile
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Book callout ─────────────────────────────────────────────────────────
+function BookCallout() {
+  const { go } = useApp();
+  return (
+    <section style={{ maxWidth: 1400, margin: "0 auto", padding: "120px 32px 40px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+        <h2 className="display" style={{ fontSize: "clamp(56px, 7vw, 104px)", margin: 0 }}>
+          Sittings open<br />for <span style={{ fontStyle: "italic", color: "var(--primary)" }}>July</span>.
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <p style={{ fontSize: 17, lineHeight: 1.6, margin: 0 }}>
+            We take a small number of bookings each month so that every sitting gets the time it deserves. Reserve a date below and we'll be in touch within a day.
+          </p>
+          <div>
+            <button onClick={() => go("booking")} className="btn btn-primary btn-lg">Book your session →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { HomeScreen });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/portfolio.jsx">
+/* Ayofemi Studios — Portfolio with lightbox */
+const PORTFOLIO = [
+  { id: 1, cat: "portraits", label: "folake · 2025", aspect: "4/5" },
+  { id: 2, cat: "portraits", label: "ada · home series", aspect: "3/4" },
+  { id: 3, cat: "portraits", label: "tom · peckham", aspect: "1/1" },
+  { id: 4, cat: "editorial", label: "iron & velvet · vogue", aspect: "3/4" },
+  { id: 5, cat: "editorial", label: "london fw · backstage", aspect: "4/5" },
+  { id: 6, cat: "editorial", label: "onile ss26", aspect: "16/9" },
+  { id: 7, cat: "weddings", label: "tunde & ada", aspect: "4/5" },
+  { id: 8, cat: "weddings", label: "kemi & ola · oniru", aspect: "3/4" },
+  { id: 9, cat: "weddings", label: "the dance floor", aspect: "1/1" },
+  { id: 10, cat: "portraits", label: "studio sitting · 03", aspect: "4/5" },
+  { id: 11, cat: "editorial", label: "the harmattan issue", aspect: "3/4" },
+  { id: 12, cat: "weddings", label: "the slow morning", aspect: "16/9" },
+];
+const CATS = ["all", "portraits", "editorial", "weddings"];
+
+function PortfolioScreen() {
+  const [cat, setCat] = React.useState("all");
+  const [lightbox, setLightbox] = React.useState(null);
+  const filtered = cat === "all" ? PORTFOLIO : PORTFOLIO.filter(p => p.cat === cat);
+
+  React.useEffect(() => {
+    if (!lightbox) return;
+    const handler = (e) => {
+      if (e.key === "Escape") setLightbox(null);
+      if (e.key === "ArrowRight") setLightbox(l => {
+        const idx = filtered.findIndex(p => p.id === l.id);
+        return filtered[(idx + 1) % filtered.length];
+      });
+      if (e.key === "ArrowLeft") setLightbox(l => {
+        const idx = filtered.findIndex(p => p.id === l.id);
+        return filtered[(idx - 1 + filtered.length) % filtered.length];
+      });
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightbox, filtered]);
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px 80px" }}>
+      <div style={{ marginBottom: 40 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 16 }}>● Portfolio · {filtered.length} frames</div>
+        <h1 className="display" style={{ fontSize: "clamp(60px, 8vw, 128px)", margin: 0 }}>
+          The <span style={{ fontStyle: "italic", color: "var(--primary)" }}>archive</span>
+        </h1>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 48, flexWrap: "wrap" }}>
+        {CATS.map(c => (
+          <Tag key={c} active={cat === c} onClick={() => setCat(c)}>
+            {c.charAt(0).toUpperCase() + c.slice(1)}
+            {c !== "all" && <span style={{ color: cat === c ? "color-mix(in oklch, var(--paper) 60%, transparent)" : "var(--muted)", marginLeft: 6 }}>· {PORTFOLIO.filter(p => p.cat === c).length}</span>}
+          </Tag>
+        ))}
+      </div>
+
+      <div style={{
+        columnCount: 3, columnGap: 16,
+      }} className="portfolio-grid">
+        {filtered.map((p, i) => (
+          <button key={p.id} onClick={() => setLightbox(p)}
+            style={{
+              breakInside: "avoid", display: "block", width: "100%", marginBottom: 16,
+              padding: 0, border: 0, background: "none", cursor: "zoom-in",
+              animation: `fadeIn 0.4s ease ${i * 0.04}s both`,
+            }}>
+            <div className="placeholder" data-label={p.label}
+              style={{ aspectRatio: p.aspect, width: "100%", borderRadius: 4, transition: "transform 0.4s ease" }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(0.98)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "none"}
+            ></div>
+            <div style={{ marginTop: 10, display: "flex", justifyContent: "space-between", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
+              <span>{p.label}</span>
+              <span>{String(p.id).padStart(3, "0")}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {lightbox && <Lightbox item={lightbox} onClose={() => setLightbox(null)} all={filtered} setItem={setLightbox} />}
+    </div>
+  );
+}
+
+function Lightbox({ item, onClose, all, setItem }) {
+  const idx = all.findIndex(p => p.id === item.id);
+  const next = () => setItem(all[(idx + 1) % all.length]);
+  const prev = () => setItem(all[(idx - 1 + all.length) % all.length]);
+  return (
+    <div onClick={onClose} className="fade-in" style={{
+      position: "fixed", inset: 0, background: "color-mix(in oklch, var(--ink) 92%, transparent)",
+      zIndex: 80, display: "flex", flexDirection: "column",
+    }}>
+      <div style={{ padding: "20px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", color: "var(--paper)" }}>
+        <div className="mono" style={{ color: "color-mix(in oklch, var(--paper) 70%, transparent)" }}>
+          {String(idx + 1).padStart(2, "0")} / {String(all.length).padStart(2, "0")} · {item.label}
+        </div>
+        <button onClick={onClose} style={{ color: "var(--paper)", fontSize: 24, lineHeight: 1, padding: 8 }}>×</button>
+      </div>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 80px 60px", position: "relative" }}>
+        <button onClick={(e) => { e.stopPropagation(); prev(); }}
+          style={{ position: "absolute", left: 24, color: "var(--paper)", fontSize: 28, padding: 16 }}>←</button>
+        <div onClick={(e) => e.stopPropagation()} className="placeholder" data-label={item.label}
+          style={{ aspectRatio: item.aspect, maxHeight: "80vh", maxWidth: "min(1100px, 90vw)", height: "80vh", borderRadius: 4 }}></div>
+        <button onClick={(e) => { e.stopPropagation(); next(); }}
+          style={{ position: "absolute", right: 24, color: "var(--paper)", fontSize: 28, padding: 16 }}>→</button>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { PortfolioScreen });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/booking.jsx">
+/* Ayofemi Studios — Booking flow (stepper + single-page variants) */
+
+const SERVICES_CATALOG = [
+  { id: "wedding-half", title: "Wedding — half day", duration: "Up to 5 hours", price: 800, desc: "Ceremony and key moments, one photographer", colorTag: "wedding" },
+  { id: "wedding-full", title: "Wedding — full day", duration: "Full day", price: 1500, desc: "Prep to last dance · £1,500–£2,500 by scope", colorTag: "wedding" },
+  { id: "wedding-luxury", title: "Luxury wedding package", duration: "Full day +", price: 3000, desc: "Two shooters, album & more · £3,000–£5,000+", colorTag: "wedding" },
+  { id: "engagement", title: "Engagement / pre-wedding", duration: "1.5 hours", price: 250, desc: "Relaxed shoot on location or in studio", colorTag: "couples" },
+  { id: "portrait", title: "Portrait session", duration: "1 hour", price: 150, desc: "Studio sitting with edited frames", colorTag: "portrait" },
+  { id: "family", title: "Family photography", duration: "1 hour", price: 180, desc: "Relaxed family session, all ages", colorTag: "portrait" },
+  { id: "maternity", title: "Maternity photography", duration: "1 hour", price: 180, desc: "Studio or location maternity shoot", colorTag: "portrait" },
+  { id: "graduation", title: "Graduation photography", duration: "45 mins", price: 120, desc: "Gowns, portraits, and the proud moment", colorTag: "portrait" },
+  { id: "birthday", title: "Birthday photography", duration: "2 hours", price: 250, desc: "Parties and milestone celebrations", colorTag: "editorial" },
+  { id: "event", title: "Event photography", duration: "2 hours", price: 350, desc: "Coverage of socials and gatherings", colorTag: "editorial" },
+  { id: "corporate-event", title: "Corporate event", duration: "Half day", price: 500, desc: "Conferences, launches, and away-days", colorTag: "commercial" },
+  { id: "headshots", title: "Corporate headshots", duration: "Per person", price: 75, desc: "Clean, consistent team portraits", colorTag: "commercial" },
+  { id: "product", title: "Product photography", duration: "Per image", price: 15, desc: "E-commerce & catalogue · £15–£30 / image", colorTag: "commercial" },
+];
+
+const ADDONS = [
+  { id: "hour", title: "Additional hour coverage", desc: "Extend the shoot · £100–£150 / hour", price: 100 },
+  { id: "drone", title: "Drone photography", desc: "Aerial coverage · £150–£300", price: 150 },
+  { id: "album", title: "Photo album", desc: "Hand-bound album · from £150", price: 150 },
+  { id: "canvas", title: "Canvas print", desc: "Framed canvas · from £40", price: 40 },
+  { id: "extra", title: "Extra edited images", desc: "Per additional edit · £10–£20", price: 15 },
+  { id: "rush", title: "Rush delivery", desc: "Final selects in 72 hours", price: 100 },
+];
+
+function nextDays(n) {
+  const out = [];
+  const today = new Date(2026, 4, 25); // May 25 2026
+  for (let i = 0; i < n; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    out.push(d);
+  }
+  return out;
+}
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const TIME_SLOTS = ["09:00", "10:30", "13:00", "14:30", "16:00", "17:30"];
+
+function BookingScreen({ style = "stepper" }) {
+  if (style === "single") return <BookingSinglePage />;
+  return <BookingStepper />;
+}
+
+// ── STEPPER VARIANT ──────────────────────────────────────────────────────
+function BookingStepper() {
+  const { booking, setBooking, go, user, setToast } = useApp();
+  const [step, setStep] = React.useState(1);
+
+  const steps = ["Service", "Date & time", "Details", "Review"];
+
+  const canNext = () => {
+    if (step === 1) return !!booking.service;
+    if (step === 2) return !!booking.date && !!booking.time;
+    if (step === 3) return booking.name && booking.email;
+    return true;
+  };
+
+  const total = (() => {
+    const s = SERVICES_CATALOG.find(s => s.id === booking.service);
+    const base = s ? s.price : 0;
+    const addons = (booking.addons || []).reduce((sum, a) => sum + (ADDONS.find(x => x.id === a)?.price || 0), 0);
+    return base + addons;
+  })();
+
+  const submit = () => {
+    setBooking({ ...booking, total, id: "AYO-" + Math.floor(Math.random() * 9000 + 1000), status: "pending" });
+    go("checkout");
+  };
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px 100px" }}>
+      <div style={{ marginBottom: 40 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● Book a session · stepper</div>
+        <h1 className="display" style={{ fontSize: "clamp(56px, 7vw, 96px)", margin: 0 }}>
+          Reserve a <span style={{ fontStyle: "italic", color: "var(--primary)" }}>date</span>.
+        </h1>
+      </div>
+
+      {/* Step progress */}
+      <div style={{ display: "flex", gap: 0, marginBottom: 48, borderBottom: "1px solid var(--line)" }}>
+        {steps.map((label, i) => {
+          const n = i + 1;
+          const active = step === n;
+          const done = step > n;
+          return (
+            <button key={label} onClick={() => done && setStep(n)}
+              style={{
+                flex: 1, padding: "16px 8px", textAlign: "left",
+                borderBottom: active ? "2px solid var(--ink)" : "2px solid transparent",
+                marginBottom: -1, cursor: done ? "pointer" : "default",
+                opacity: !active && !done ? 0.45 : 1,
+              }}>
+              <div className="mono" style={{ color: "var(--muted)", marginBottom: 6 }}>Step {String(n).padStart(2, "0")}</div>
+              <div className="display" style={{ fontSize: 22 }}>{label}</div>
+            </button>
+          );
+        })}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 64 }}>
+        <div>
+          {step === 1 && <StepService booking={booking} setBooking={setBooking} />}
+          {step === 2 && <StepDateTime booking={booking} setBooking={setBooking} />}
+          {step === 3 && <StepDetails booking={booking} setBooking={setBooking} user={user} />}
+          {step === 4 && <StepReview booking={booking} total={total} />}
+
+          <div style={{ marginTop: 40, display: "flex", gap: 12, justifyContent: "space-between" }}>
+            <button onClick={() => setStep(s => Math.max(1, s - 1))} className="btn btn-ghost" disabled={step === 1} style={{ opacity: step === 1 ? 0.3 : 1 }}>← Back</button>
+            {step < 4 ? (
+              <button onClick={() => canNext() && setStep(s => s + 1)} className="btn btn-primary btn-lg" disabled={!canNext()} style={{ opacity: canNext() ? 1 : 0.4, cursor: canNext() ? "pointer" : "not-allowed" }}>
+                Continue →
+              </button>
+            ) : (
+              <button onClick={submit} className="btn btn-primary btn-lg">Confirm & pay →</button>
+            )}
+          </div>
+        </div>
+
+        <BookingSummary booking={booking} total={total} />
+      </div>
+    </div>
+  );
+}
+
+// ── SINGLE-PAGE VARIANT ──────────────────────────────────────────────────
+function BookingSinglePage() {
+  const { booking, setBooking, go, user } = useApp();
+
+  const total = (() => {
+    const s = SERVICES_CATALOG.find(s => s.id === booking.service);
+    const base = s ? s.price : 0;
+    const addons = (booking.addons || []).reduce((sum, a) => sum + (ADDONS.find(x => x.id === a)?.price || 0), 0);
+    return base + addons;
+  })();
+
+  const canSubmit = booking.service && booking.date && booking.time && booking.name && booking.email;
+
+  const submit = () => {
+    if (!canSubmit) return;
+    setBooking({ ...booking, total, id: "AYO-" + Math.floor(Math.random() * 9000 + 1000), status: "pending" });
+    go("checkout");
+  };
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px 100px" }}>
+      <div style={{ marginBottom: 60 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● Book a session</div>
+        <h1 className="display" style={{ fontSize: "clamp(56px, 7vw, 96px)", margin: 0 }}>
+          One <span style={{ fontStyle: "italic", color: "var(--primary)" }}>page</span>, one sitting.
+        </h1>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 64 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 64 }}>
+          <Block num="01" title="Choose a service">
+            <StepService booking={booking} setBooking={setBooking} />
+          </Block>
+          <Block num="02" title="Pick a date & time">
+            <StepDateTime booking={booking} setBooking={setBooking} />
+          </Block>
+          <Block num="03" title="Your details">
+            <StepDetails booking={booking} setBooking={setBooking} user={user} />
+          </Block>
+          <div>
+            <button onClick={submit} className="btn btn-primary btn-lg"
+              disabled={!canSubmit}
+              style={{ opacity: canSubmit ? 1 : 0.4, cursor: canSubmit ? "pointer" : "not-allowed" }}>
+              Continue to checkout →
+            </button>
+          </div>
+        </div>
+
+        <BookingSummary booking={booking} total={total} sticky />
+      </div>
+    </div>
+  );
+}
+
+function Block({ num, title, children }) {
+  return (
+    <section>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 24, paddingBottom: 16, borderBottom: "1px solid var(--line)" }}>
+        <span className="display" style={{ fontSize: 36, color: "var(--muted)" }}>{num}</span>
+        <h2 className="display" style={{ fontSize: 36, margin: 0 }}>{title}</h2>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+// ── Step 1: Service ──────────────────────────────────────────────────────
+function StepService({ booking, setBooking }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {SERVICES_CATALOG.map(s => {
+        const selected = booking.service === s.id;
+        return (
+          <button key={s.id} onClick={() => setBooking({ ...booking, service: s.id })}
+            style={{
+              padding: 20, borderRadius: 6,
+              border: `1px solid ${selected ? "var(--ink)" : "var(--line)"}`,
+              background: selected ? "var(--paper-2)" : "transparent",
+              display: "grid", gridTemplateColumns: "24px 1fr 140px 120px", gap: 16, alignItems: "center",
+              textAlign: "left", cursor: "pointer", transition: "all 0.2s ease",
+            }}>
+            <div style={{
+              width: 18, height: 18, borderRadius: "50%",
+              border: `1px solid ${selected ? "var(--ink)" : "var(--line)"}`,
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              {selected && <div style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--ink)" }}></div>}
+            </div>
+            <div>
+              <div className="display" style={{ fontSize: 24 }}>{s.title}</div>
+              <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 4 }}>{s.desc}</div>
+            </div>
+            <div className="mono" style={{ color: "var(--muted)" }}>{s.duration}</div>
+            <div className="display" style={{ fontSize: 24, textAlign: "right" }}>{formatNaira(s.price)}</div>
+          </button>
+        );
+      })}
+
+      <div style={{ marginTop: 20 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>Add-ons (optional)</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+          {ADDONS.map(a => {
+            const sel = (booking.addons || []).includes(a.id);
+            return (
+              <button key={a.id} onClick={() => {
+                const cur = booking.addons || [];
+                setBooking({ ...booking, addons: sel ? cur.filter(x => x !== a.id) : [...cur, a.id] });
+              }}
+                style={{
+                  padding: 14, borderRadius: 6,
+                  border: `1px solid ${sel ? "var(--ink)" : "var(--line)"}`,
+                  background: sel ? "var(--paper-2)" : "transparent",
+                  textAlign: "left", display: "flex", flexDirection: "column", gap: 4,
+                }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ fontWeight: 500, fontSize: 14 }}>{a.title}</span>
+                  <span style={{ fontSize: 13 }}>+{formatNaira(a.price)}</span>
+                </div>
+                <div style={{ fontSize: 12, color: "var(--muted)" }}>{a.desc}</div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Step 2: Date & Time ──────────────────────────────────────────────────
+function StepDateTime({ booking, setBooking }) {
+  const [month, setMonth] = React.useState(5); // June (0-indexed)
+  const year = 2026;
+
+  // Build month grid
+  const firstDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDay = firstDay.getDay();
+  const cells = [];
+  for (let i = 0; i < startDay; i++) cells.push(null);
+  for (let i = 1; i <= daysInMonth; i++) cells.push(i);
+
+  const today = new Date(2026, 4, 25);
+  const isPast = (day) => day && new Date(year, month, day) < today;
+  // Stub: every 7th day is unavailable
+  const isUnavail = (day) => day && (day % 7 === 0);
+
+  const selectDate = (day) => {
+    if (isPast(day) || isUnavail(day)) return;
+    setBooking({ ...booking, date: `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`, dateLabel: `${MONTH_NAMES[month]} ${day}, ${year}` });
+  };
+
+  const selectedDay = booking.date ? parseInt(booking.date.split("-")[2]) : null;
+  const selectedMonth = booking.date ? parseInt(booking.date.split("-")[1]) - 1 : null;
+
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: 32 }}>
+      <div className="card" style={{ padding: 24 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+          <button onClick={() => setMonth(m => m - 1)} disabled={month <= 4}
+            style={{ fontSize: 18, opacity: month <= 4 ? 0.3 : 1, padding: "6px 12px" }}>←</button>
+          <div className="display" style={{ fontSize: 28 }}>{MONTH_NAMES[month]} {year}</div>
+          <button onClick={() => setMonth(m => m + 1)} disabled={month >= 11}
+            style={{ fontSize: 18, opacity: month >= 11 ? 0.3 : 1, padding: "6px 12px" }}>→</button>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4, marginBottom: 8 }}>
+          {DAY_NAMES.map(d => (
+            <div key={d} className="mono" style={{ textAlign: "center", color: "var(--muted)", padding: "6px 0" }}>{d}</div>
+          ))}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4 }}>
+          {cells.map((day, i) => {
+            if (!day) return <div key={i}></div>;
+            const past = isPast(day);
+            const unavail = isUnavail(day);
+            const selected = selectedDay === day && selectedMonth === month;
+            return (
+              <button key={i} onClick={() => selectDate(day)} disabled={past || unavail}
+                style={{
+                  aspectRatio: "1/1", borderRadius: 6,
+                  background: selected ? "var(--ink)" : "transparent",
+                  color: selected ? "var(--paper)" : (past || unavail) ? "var(--muted)" : "var(--ink)",
+                  opacity: past ? 0.25 : unavail ? 0.4 : 1,
+                  fontSize: 14, fontWeight: 500,
+                  cursor: (past || unavail) ? "not-allowed" : "pointer",
+                  position: "relative",
+                  transition: "background 0.18s",
+                  border: "1px solid transparent",
+                }}
+                onMouseEnter={(e) => !selected && !past && !unavail && (e.currentTarget.style.background = "var(--paper-2)")}
+                onMouseLeave={(e) => !selected && (e.currentTarget.style.background = "transparent")}
+              >
+                {day}
+                {unavail && !past && <span style={{ position: "absolute", bottom: 4, left: "50%", transform: "translateX(-50%)", width: 4, height: 4, borderRadius: "50%", background: "var(--muted)" }}></span>}
+              </button>
+            );
+          })}
+        </div>
+        <div style={{ display: "flex", gap: 16, marginTop: 20, paddingTop: 16, borderTop: "1px solid var(--line)", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 6 }}><span style={{ width: 8, height: 8, background: "var(--ink)", borderRadius: 2 }}></span> Selected</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 6 }}><span style={{ width: 4, height: 4, background: "var(--muted)", borderRadius: "50%" }}></span> Booked</span>
+        </div>
+      </div>
+
+      <div>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>Available times</div>
+        {!booking.date ? (
+          <div style={{ padding: "20px 0", fontSize: 13, color: "var(--muted)" }}>Select a date first</div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {TIME_SLOTS.map(t => {
+              const sel = booking.time === t;
+              const unavail = t === "13:00";
+              return (
+                <button key={t} onClick={() => !unavail && setBooking({ ...booking, time: t })} disabled={unavail}
+                  style={{
+                    padding: "14px 16px", borderRadius: 6,
+                    border: `1px solid ${sel ? "var(--ink)" : "var(--line)"}`,
+                    background: sel ? "var(--ink)" : "transparent",
+                    color: sel ? "var(--paper)" : unavail ? "var(--muted)" : "var(--ink)",
+                    textAlign: "left", display: "flex", justifyContent: "space-between",
+                    opacity: unavail ? 0.4 : 1, cursor: unavail ? "not-allowed" : "pointer",
+                    transition: "all 0.18s",
+                  }}>
+                  <span style={{ fontWeight: 500 }}>{t}</span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                    {unavail ? "Booked" : sel ? "Selected" : "Available"}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Step 3: Details ──────────────────────────────────────────────────────
+function StepDetails({ booking, setBooking, user }) {
+  React.useEffect(() => {
+    if (user && !booking.name) {
+      setBooking({ ...booking, name: user.name, email: user.email });
+    }
+  }, [user]);
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+      <Field label="Full name" value={booking.name || ""} onChange={v => setBooking({ ...booking, name: v })} placeholder="Ayọkunle Adeyemi" />
+      <Field label="Email" type="email" value={booking.email || ""} onChange={v => setBooking({ ...booking, email: v })} placeholder="you@example.com" />
+      <Field label="Phone" value={booking.phone || ""} onChange={v => setBooking({ ...booking, phone: v })} placeholder="+44 7XXX XXX XXX" />
+      <Field label="How did you hear about us?" value={booking.referral || ""} onChange={v => setBooking({ ...booking, referral: v })} placeholder="Instagram, a friend, our journal..." />
+      <div style={{ gridColumn: "1 / -1" }}>
+        <Field label="Notes for the studio" textarea value={booking.notes || ""} onChange={v => setBooking({ ...booking, notes: v })}
+          placeholder="Tell us about the sitting — who's in front of the camera, the feeling you're after, anything else." />
+      </div>
+    </div>
+  );
+}
+
+function Field({ label, value, onChange, placeholder, type = "text", textarea }) {
+  return (
+    <label className="field">
+      <span className="field-label">{label}</span>
+      {textarea ? (
+        <textarea className="input" value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={4} />
+      ) : (
+        <input className="input" type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} />
+      )}
+    </label>
+  );
+}
+
+// ── Step 4: Review ───────────────────────────────────────────────────────
+function StepReview({ booking, total }) {
+  const s = SERVICES_CATALOG.find(s => s.id === booking.service);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <ReviewRow label="Service" value={s ? `${s.title} · ${s.duration}` : "—"} />
+      <ReviewRow label="Date & time" value={booking.date ? `${booking.dateLabel} · ${booking.time}` : "—"} />
+      <ReviewRow label="Contact" value={`${booking.name} · ${booking.email}${booking.phone ? " · " + booking.phone : ""}`} />
+      {booking.notes && <ReviewRow label="Notes" value={booking.notes} />}
+      {booking.addons?.length > 0 && (
+        <ReviewRow label="Add-ons" value={booking.addons.map(a => ADDONS.find(x => x.id === a).title).join(" · ")} />
+      )}
+      <div style={{ marginTop: 8, paddingTop: 24, borderTop: "1px solid var(--ink)", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+        <span className="mono" style={{ color: "var(--muted)" }}>Total due today</span>
+        <span className="display" style={{ fontSize: 56 }}>{formatNaira(total)}</span>
+      </div>
+    </div>
+  );
+}
+function ReviewRow({ label, value }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "180px 1fr", gap: 24, paddingBottom: 16, borderBottom: "1px solid var(--line)" }}>
+      <span className="mono" style={{ color: "var(--muted)" }}>{label}</span>
+      <span style={{ fontSize: 16 }}>{value}</span>
+    </div>
+  );
+}
+
+// ── Booking summary (sticky sidebar) ─────────────────────────────────────
+function BookingSummary({ booking, total, sticky }) {
+  const s = SERVICES_CATALOG.find(s => s.id === booking.service);
+  return (
+    <aside style={{ position: sticky ? "sticky" : "relative", top: sticky ? 100 : 0, alignSelf: "start" }}>
+      <div className="card" style={{ padding: 28 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 16 }}>● Your sitting</div>
+
+        <div className="placeholder" data-label="reference moodboard"
+          style={{ aspectRatio: "4/3", borderRadius: 4, marginBottom: 20 }}></div>
+
+        <SummaryRow label="Service" value={s?.title || <em style={{ color: "var(--muted)", fontStyle: "italic" }}>Not selected</em>} />
+        <SummaryRow label="Duration" value={s?.duration || "—"} />
+        <SummaryRow label="Date" value={booking.dateLabel || <em style={{ color: "var(--muted)", fontStyle: "italic" }}>—</em>} />
+        <SummaryRow label="Time" value={booking.time || <em style={{ color: "var(--muted)", fontStyle: "italic" }}>—</em>} />
+        {booking.addons?.length > 0 && (
+          <SummaryRow label="Add-ons" value={`${booking.addons.length} selected`} />
+        )}
+
+        <hr className="divider" style={{ margin: "20px 0" }} />
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+          <span className="mono" style={{ color: "var(--muted)" }}>Total</span>
+          <span className="display" style={{ fontSize: 36 }}>{total ? formatNaira(total) : "£0"}</span>
+        </div>
+
+        <div style={{ marginTop: 24, padding: 14, background: "var(--paper-2)", borderRadius: 4, fontSize: 12, color: "var(--muted)", lineHeight: 1.55 }}>
+          A 30% deposit secures your date. Final payment due 48hr before the sitting.
+        </div>
+      </div>
+    </aside>
+  );
+}
+function SummaryRow({ label, value }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", fontSize: 14 }}>
+      <span className="mono" style={{ color: "var(--muted)" }}>{label}</span>
+      <span style={{ textAlign: "right", maxWidth: "60%" }}>{value}</span>
+    </div>
+  );
+}
+
+Object.assign(window, { BookingScreen, SERVICES_CATALOG, ADDONS });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/auth.jsx">
+/* Ayofemi Studios — Auth (signup / login) */
+
+function AuthScreen() {
+  const { signIn, go, setToast } = useApp();
+  const [mode, setMode] = React.useState("signin");
+  const [form, setForm] = React.useState({ name: "", email: "", password: "" });
+  const [loading, setLoading] = React.useState(false);
+
+  const submit = (e) => {
+    e?.preventDefault();
+    if (mode === "signup" && !form.name) return;
+    if (!form.email || !form.password) return;
+    setLoading(true);
+    setTimeout(() => {
+      signIn({
+        name: mode === "signup" ? form.name : (form.email.split("@")[0].replace(/\W/g, " ") || "Friend"),
+        email: form.email,
+        isAdmin: false,
+      });
+      setToast(mode === "signup" ? "Welcome to the studio." : "Welcome back.");
+      go("dashboard");
+    }, 700);
+  };
+
+  return (
+    <div className="fade-in" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "calc(100vh - 60px)" }}>
+      <div className="placeholder" data-label="studio · peckham · 04:00pm" style={{ minHeight: 600 }}></div>
+
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "60px 80px" }}>
+        <div style={{ maxWidth: 420, width: "100%", margin: "0 auto" }}>
+          <div className="mono" style={{ color: "var(--muted)", marginBottom: 16 }}>● {mode === "signin" ? "Sign in" : "Create account"}</div>
+          <h1 className="display" style={{ fontSize: 72, margin: "0 0 12px" }}>
+            {mode === "signin" ? <>Welcome <span style={{ fontStyle: "italic", color: "var(--primary)" }}>back</span>.</> : <>Make a <span style={{ fontStyle: "italic", color: "var(--primary)" }}>seat</span>.</>}
+          </h1>
+          <p style={{ color: "var(--muted)", marginBottom: 36, lineHeight: 1.55 }}>
+            {mode === "signin" ? "Sign in to manage your sittings and revisit galleries." : "An Ayofemi account holds your sittings, your galleries, and your prints."}
+          </p>
+
+          <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            {mode === "signup" && (
+              <label className="field">
+                <span className="field-label">Full name</span>
+                <input className="input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Ayọkunle Adeyemi" />
+              </label>
+            )}
+            <label className="field">
+              <span className="field-label">Email</span>
+              <input className="input" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" />
+            </label>
+            <label className="field">
+              <span className="field-label">Password</span>
+              <input className="input" type="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} placeholder="••••••••" />
+            </label>
+
+            <button type="submit" className="btn btn-primary btn-lg" disabled={loading} style={{ marginTop: 8 }}>
+              {loading ? <><span className="spinner"></span> One moment</> : (mode === "signin" ? "Sign in →" : "Create account →")}
+            </button>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <button type="button" onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+                style={{ fontSize: 13, color: "var(--muted)", textDecoration: "underline", textUnderlineOffset: 4 }}>
+                {mode === "signin" ? "No account? Create one →" : "Already have an account? Sign in →"}
+              </button>
+              {mode === "signin" && <button type="button" style={{ fontSize: 13, color: "var(--muted)" }}>Forgot password?</button>}
+            </div>
+          </form>
+
+          <hr className="divider" style={{ margin: "36px 0 28px" }} />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <button onClick={() => { signIn({ name: "Folake Okonkwo", email: "folake@onile.studio", isAdmin: false }); go("dashboard"); }}
+              className="btn btn-ghost btn-sm">Demo as Client →</button>
+            <button onClick={() => { signIn({ name: "Ayofemi A.", email: "ayofemi@ayofemi.studio", isAdmin: true }); go("admin"); }}
+              className="btn btn-ghost btn-sm">Demo as Admin →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { AuthScreen });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/dashboard.jsx">
+/* Ayofemi Studios — Client dashboard */
+
+function DashboardScreen() {
+  const { user, bookings, go, signOut } = useApp();
+  if (!user) {
+    React.useEffect(() => go("auth"), []);
+    return null;
+  }
+
+  const myBookings = bookings.filter(b => b.email === user.email);
+  const upcoming = myBookings.filter(b => b.status !== "completed");
+  const past = myBookings.filter(b => b.status === "completed");
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px 100px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 48 }}>
+        <div>
+          <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● Your studio</div>
+          <h1 className="display" style={{ fontSize: "clamp(56px, 7vw, 96px)", margin: 0 }}>
+            Hello, <span style={{ fontStyle: "italic", color: "var(--primary)" }}>{user.name.split(" ")[0]}</span>.
+          </h1>
+        </div>
+        <button onClick={signOut} className="btn btn-ghost">Sign out</button>
+      </div>
+
+      {/* Quick stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 64 }}>
+        <StatCard label="Upcoming" value={upcoming.length} sub="sittings" />
+        <StatCard label="Galleries" value={past.length} sub="ready to view" />
+        <StatCard label="Prints" value="3" sub="in archive" />
+        <StatCard label="Credit" value="£0" sub="on account" />
+      </div>
+
+      {/* Upcoming bookings */}
+      <section style={{ marginBottom: 64 }}>
+        <h2 className="display" style={{ fontSize: 40, margin: "0 0 24px" }}>Upcoming sittings</h2>
+        {upcoming.length === 0 ? (
+          <div className="card" style={{ padding: 48, textAlign: "center" }}>
+            <p style={{ color: "var(--muted)", margin: "0 0 16px" }}>You don't have any sittings booked.</p>
+            <button onClick={() => go("booking")} className="btn btn-primary">Book a session →</button>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {upcoming.map(b => <BookingCard key={b.id} b={b} />)}
+          </div>
+        )}
+      </section>
+
+      {/* Galleries */}
+      <section style={{ marginBottom: 64 }}>
+        <h2 className="display" style={{ fontSize: 40, margin: "0 0 24px" }}>Your galleries</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          <GalleryCard label="folake · home portraits" date="March 2025" count={42} />
+          <GalleryCard label="onile · campaign ss25" date="January 2025" count={86} />
+          <GalleryCard label="studio portraits · 2024" date="November 2024" count={28} />
+        </div>
+      </section>
+
+      {/* Activity */}
+      <section>
+        <h2 className="display" style={{ fontSize: 40, margin: "0 0 24px" }}>Recent activity</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 0, borderTop: "1px solid var(--line)" }}>
+          <Activity icon="✦" text="Gallery for the March sitting is ready" time="2 days ago" />
+          <Activity icon="✦" text="Your archival prints have shipped" time="1 week ago" />
+          <Activity icon="✦" text="Payment received · £150" time="3 weeks ago" />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function StatCard({ label, value, sub }) {
+  return (
+    <div className="card" style={{ padding: 24 }}>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>{label}</div>
+      <div className="display" style={{ fontSize: 56, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 6 }}>{sub}</div>
+    </div>
+  );
+}
+
+function BookingCard({ b }) {
+  const s = SERVICES_CATALOG.find(s => s.id === b.service);
+  return (
+    <div className="card" style={{ padding: 24, display: "grid", gridTemplateColumns: "120px 1fr 200px 140px", gap: 24, alignItems: "center" }}>
+      <div style={{ textAlign: "center" }}>
+        <div className="display" style={{ fontSize: 48, lineHeight: 1 }}>{b.date?.split("-")[2] || "—"}</div>
+        <div className="mono" style={{ color: "var(--muted)", marginTop: 4 }}>{b.dateLabel?.split(",")[0] || ""}</div>
+      </div>
+      <div>
+        <div className="display" style={{ fontSize: 24 }}>{s?.title}</div>
+        <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 4 }}>{b.time} · {s?.duration} · {b.id}</div>
+      </div>
+      <div>
+        <StatusPill status={b.status} />
+      </div>
+      <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+        <button className="btn btn-ghost btn-sm">Manage</button>
+      </div>
+    </div>
+  );
+}
+
+function StatusPill({ status }) {
+  const palette = {
+    pending: { bg: "var(--paper-2)", text: "var(--muted)", label: "Pending" },
+    confirmed: { bg: "color-mix(in oklch, var(--accent) 30%, var(--paper))", text: "var(--ink)", label: "Confirmed" },
+    completed: { bg: "var(--ink)", text: "var(--paper)", label: "Completed" },
+  }[status] || { bg: "var(--paper-2)", text: "var(--muted)", label: status };
+  return (
+    <span style={{
+      display: "inline-flex", alignItems: "center", gap: 8,
+      padding: "6px 12px", borderRadius: 999,
+      background: palette.bg, color: palette.text,
+      fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase",
+    }}>
+      <span style={{ width: 6, height: 6, borderRadius: "50%", background: palette.text, opacity: 0.7 }}></span>
+      {palette.label}
+    </span>
+  );
+}
+
+function GalleryCard({ label, date, count }) {
+  return (
+    <button style={{ textAlign: "left", padding: 0, background: "none", cursor: "pointer", width: "100%" }}>
+      <div className="placeholder" data-label={label} style={{ aspectRatio: "4/5", borderRadius: 4 }}></div>
+      <div style={{ marginTop: 12, display: "flex", justifyContent: "space-between" }}>
+        <div>
+          <div style={{ fontWeight: 500, fontSize: 15 }}>{label}</div>
+          <div className="mono" style={{ color: "var(--muted)", marginTop: 4 }}>{date}</div>
+        </div>
+        <div className="mono" style={{ color: "var(--muted)" }}>{count} frames</div>
+      </div>
+    </button>
+  );
+}
+
+function Activity({ icon, text, time }) {
+  return (
+    <div style={{ padding: "20px 0", borderBottom: "1px solid var(--line)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <span style={{ color: "var(--primary)", fontSize: 14 }}>{icon}</span>
+        <span style={{ fontSize: 15 }}>{text}</span>
+      </div>
+      <span className="mono" style={{ color: "var(--muted)" }}>{time}</span>
+    </div>
+  );
+}
+
+Object.assign(window, { DashboardScreen, StatusPill });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/admin.jsx">
+/* Ayofemi Studios — Admin panel */
+
+function AdminScreen() {
+  const { user, services, setServices, bookings, availability, setAvailability, go, setToast } = useApp();
+  const [tab, setTab] = React.useState("overview");
+  const [editing, setEditing] = React.useState(null);
+
+  if (!user || !user.isAdmin) {
+    React.useEffect(() => go("auth"), []);
+    return null;
+  }
+
+  return (
+    <div className="fade-in" style={{ display: "grid", gridTemplateColumns: "240px 1fr", minHeight: "calc(100vh - 60px)" }}>
+      {/* Sidebar */}
+      <aside style={{ borderRight: "1px solid var(--line)", padding: "32px 20px", background: "var(--paper-2)" }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 20, padding: "0 12px" }}>● Studio admin</div>
+        <nav style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {[
+            { id: "overview", label: "Overview" },
+            { id: "bookings", label: "Bookings" },
+            { id: "services", label: "Services" },
+            { id: "availability", label: "Availability" },
+            { id: "clients", label: "Clients" },
+          ].map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)}
+              style={{
+                padding: "10px 12px", borderRadius: 4, textAlign: "left",
+                background: tab === t.id ? "var(--ink)" : "transparent",
+                color: tab === t.id ? "var(--paper)" : "var(--ink)",
+                fontSize: 14, fontWeight: 500,
+                transition: "background 0.15s",
+              }}>{t.label}</button>
+          ))}
+        </nav>
+        <hr className="divider" style={{ margin: "24px 0" }} />
+        <div style={{ padding: "0 12px" }}>
+          <div className="mono" style={{ color: "var(--muted)", marginBottom: 10 }}>Signed in</div>
+          <div style={{ fontSize: 14, fontWeight: 500 }}>{user.name}</div>
+          <div className="mono" style={{ color: "var(--muted)", marginTop: 4 }}>{user.email}</div>
+        </div>
+      </aside>
+
+      {/* Content */}
+      <main style={{ padding: "48px 56px", maxWidth: 1200 }}>
+        {tab === "overview" && <AdminOverview bookings={bookings} services={services} setTab={setTab} />}
+        {tab === "bookings" && <AdminBookings bookings={bookings} />}
+        {tab === "services" && <AdminServices services={services} setServices={setServices} editing={editing} setEditing={setEditing} setToast={setToast} />}
+        {tab === "availability" && <AdminAvailability availability={availability} setAvailability={setAvailability} setToast={setToast} />}
+        {tab === "clients" && <AdminClients bookings={bookings} />}
+      </main>
+    </div>
+  );
+}
+
+function AdminOverview({ bookings, services, setTab }) {
+  return (
+    <div>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● Today is May 25, 2026</div>
+      <h1 className="display" style={{ fontSize: 64, margin: "0 0 40px" }}>Studio overview</h1>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 48 }}>
+        <StatCard label="This month" value={bookings.length} sub="bookings" />
+        <StatCard label="Revenue" value={formatNaira(bookings.reduce((s, b) => s + (b.total || 0), 0))} sub="confirmed" />
+        <StatCard label="Services" value={services.length} sub="active" />
+        <StatCard label="Open slots" value="14" sub="next 30 days" />
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 32 }}>
+        <section>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <h2 className="display" style={{ fontSize: 28, margin: 0 }}>Latest bookings</h2>
+            <button onClick={() => setTab("bookings")} className="btn btn-ghost btn-sm">View all →</button>
+          </div>
+          <div className="card">
+            {bookings.slice(0, 4).map((b, i) => (
+              <div key={b.id} style={{ padding: 20, borderBottom: i < 3 ? "1px solid var(--line)" : "none", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 100px", gap: 16, alignItems: "center" }}>
+                <div>
+                  <div style={{ fontWeight: 500 }}>{b.name}</div>
+                  <div className="mono" style={{ color: "var(--muted)", marginTop: 4 }}>{b.id}</div>
+                </div>
+                <div style={{ fontSize: 14 }}>{services.find(s => s.id === b.service)?.title}</div>
+                <div style={{ fontSize: 14 }}>{b.dateLabel} · {b.time}</div>
+                <StatusPill status={b.status} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="display" style={{ fontSize: 28, margin: "0 0 16px" }}>Quick actions</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <button onClick={() => setTab("services")} className="btn btn-ghost" style={{ justifyContent: "space-between" }}>Add new service <span>+</span></button>
+            <button onClick={() => setTab("availability")} className="btn btn-ghost" style={{ justifyContent: "space-between" }}>Block a date <span>✕</span></button>
+            <button className="btn btn-ghost" style={{ justifyContent: "space-between" }}>Export bookings <span>↓</span></button>
+            <button className="btn btn-ghost" style={{ justifyContent: "space-between" }}>Resend confirmations <span>✦</span></button>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function AdminBookings({ bookings }) {
+  const [filter, setFilter] = React.useState("all");
+  const filtered = filter === "all" ? bookings : bookings.filter(b => b.status === filter);
+  return (
+    <div>
+      <h1 className="display" style={{ fontSize: 48, margin: "0 0 24px" }}>Bookings</h1>
+      <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
+        {["all", "pending", "confirmed", "completed"].map(f => (
+          <Tag key={f} active={filter === f} onClick={() => setFilter(f)}>{f}</Tag>
+        ))}
+      </div>
+      <div className="card">
+        <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 1fr 1fr 1fr 120px 100px", padding: "14px 20px", borderBottom: "1px solid var(--line)", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
+          <span>ID</span><span>Client</span><span>Service</span><span>Date</span><span>Time</span><span>Total</span><span>Status</span>
+        </div>
+        {filtered.map(b => (
+          <div key={b.id} style={{ display: "grid", gridTemplateColumns: "120px 1fr 1fr 1fr 1fr 120px 100px", padding: "18px 20px", borderBottom: "1px solid var(--line)", alignItems: "center", fontSize: 13 }}>
+            <span className="mono">{b.id}</span>
+            <span>{b.name}</span>
+            <span>{SERVICES_CATALOG.find(s => s.id === b.service)?.title}</span>
+            <span>{b.dateLabel}</span>
+            <span>{b.time}</span>
+            <span>{formatNaira(b.total || 0)}</span>
+            <StatusPill status={b.status} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AdminServices({ services, setServices, editing, setEditing, setToast }) {
+  const save = (s) => {
+    if (s.id && services.find(x => x.id === s.id)) {
+      setServices(services.map(x => x.id === s.id ? s : x));
+      setToast("Service updated");
+    } else {
+      const id = s.title.toLowerCase().replace(/\s+/g, "-").slice(0, 24) + "-" + Math.floor(Math.random() * 99);
+      setServices([...services, { ...s, id }]);
+      setToast("Service added");
+    }
+    setEditing(null);
+  };
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+        <h1 className="display" style={{ fontSize: 48, margin: 0 }}>Services</h1>
+        <button onClick={() => setEditing({ title: "", desc: "", duration: "", price: 0 })} className="btn btn-primary">+ New service</button>
+      </div>
+      <div className="card">
+        {services.map((s, i) => (
+          <div key={s.id} style={{ padding: 20, borderBottom: i < services.length - 1 ? "1px solid var(--line)" : "none", display: "grid", gridTemplateColumns: "60px 1fr 2fr 140px 120px 120px", gap: 16, alignItems: "center" }}>
+            <span className="display" style={{ fontSize: 24, color: "var(--muted)" }}>{String(i + 1).padStart(2, "0")}</span>
+            <span style={{ fontWeight: 500 }}>{s.title}</span>
+            <span style={{ fontSize: 13, color: "var(--muted)" }}>{s.desc}</span>
+            <span className="mono" style={{ color: "var(--muted)" }}>{s.duration}</span>
+            <span className="display" style={{ fontSize: 20 }}>{formatNaira(s.price)}</span>
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button onClick={() => setEditing(s)} className="btn btn-ghost btn-sm">Edit</button>
+              <button onClick={() => { setServices(services.filter(x => x.id !== s.id)); setToast("Service removed"); }}
+                style={{ color: "var(--muted)", padding: "9px 6px", fontSize: 14 }}>✕</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {editing && <ServiceEditor service={editing} onSave={save} onClose={() => setEditing(null)} />}
+    </div>
+  );
+}
+
+function ServiceEditor({ service, onSave, onClose }) {
+  const [s, setS] = React.useState(service);
+  return (
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div onClick={(e) => e.stopPropagation()} className="card" style={{ width: 540, padding: 32, background: "var(--paper)" }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 8 }}>● {service.id ? "Edit" : "New"} service</div>
+        <h2 className="display" style={{ fontSize: 32, margin: "0 0 24px" }}>{service.id ? service.title : "New service"}</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <Field label="Title" value={s.title} onChange={v => setS({ ...s, title: v })} placeholder="Portrait sitting" />
+          <Field label="Description" textarea value={s.desc} onChange={v => setS({ ...s, desc: v })} placeholder="Brief description" />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <Field label="Duration" value={s.duration} onChange={v => setS({ ...s, duration: v })} placeholder="1.5 hours" />
+            <label className="field">
+              <span className="field-label">Price (£)</span>
+              <input className="input" type="number" value={s.price} onChange={e => setS({ ...s, price: parseInt(e.target.value || 0) })} />
+            </label>
+          </div>
+        </div>
+        <div style={{ marginTop: 32, display: "flex", justifyContent: "flex-end", gap: 10 }}>
+          <button onClick={onClose} className="btn btn-ghost">Cancel</button>
+          <button onClick={() => onSave(s)} className="btn btn-primary">Save service</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AdminAvailability({ availability, setAvailability, setToast }) {
+  const [month, setMonth] = React.useState(5);
+  const year = 2026;
+  const firstDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDay = firstDay.getDay();
+  const cells = [];
+  for (let i = 0; i < startDay; i++) cells.push(null);
+  for (let i = 1; i <= daysInMonth; i++) cells.push(i);
+
+  const toggle = (day) => {
+    const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    setAvailability({ ...availability, [key]: !availability[key] });
+    setToast(availability[key] ? "Date opened" : "Date blocked");
+  };
+
+  return (
+    <div>
+      <h1 className="display" style={{ fontSize: 48, margin: "0 0 8px" }}>Availability</h1>
+      <p style={{ color: "var(--muted)", margin: "0 0 32px" }}>Click a date to block or open it for bookings.</p>
+
+      <div className="card" style={{ padding: 32, maxWidth: 720 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+          <button onClick={() => setMonth(m => Math.max(4, m - 1))} className="btn btn-ghost btn-sm">←</button>
+          <div className="display" style={{ fontSize: 32 }}>{MONTH_NAMES[month]} {year}</div>
+          <button onClick={() => setMonth(m => Math.min(11, m + 1))} className="btn btn-ghost btn-sm">→</button>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6, marginBottom: 8 }}>
+          {DAY_NAMES.map(d => <div key={d} className="mono" style={{ textAlign: "center", color: "var(--muted)", padding: "6px 0" }}>{d}</div>)}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6 }}>
+          {cells.map((day, i) => {
+            if (!day) return <div key={i}></div>;
+            const key = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+            const blocked = availability[key];
+            return (
+              <button key={i} onClick={() => toggle(day)}
+                style={{
+                  aspectRatio: "1/1", borderRadius: 4,
+                  border: `1px solid ${blocked ? "var(--ink)" : "var(--line)"}`,
+                  background: blocked ? "var(--ink)" : "transparent",
+                  color: blocked ? "var(--paper)" : "var(--ink)",
+                  fontSize: 14, fontWeight: 500,
+                  position: "relative",
+                  transition: "all 0.15s",
+                }}>
+                {day}
+              </button>
+            );
+          })}
+        </div>
+        <div style={{ display: "flex", gap: 24, marginTop: 24, paddingTop: 20, borderTop: "1px solid var(--line)", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 10, height: 10, background: "var(--ink)", borderRadius: 2 }}></span> Blocked</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 10, height: 10, background: "transparent", border: "1px solid var(--line)", borderRadius: 2 }}></span> Open</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AdminClients({ bookings }) {
+  const clients = [...new Set(bookings.map(b => b.email))].map(email => {
+    const b = bookings.filter(x => x.email === email);
+    return { email, name: b[0].name, count: b.length, total: b.reduce((s, x) => s + (x.total || 0), 0) };
+  });
+  return (
+    <div>
+      <h1 className="display" style={{ fontSize: 48, margin: "0 0 24px" }}>Clients</h1>
+      <div className="card">
+        {clients.map((c, i) => (
+          <div key={c.email} style={{ padding: 20, borderBottom: i < clients.length - 1 ? "1px solid var(--line)" : "none", display: "grid", gridTemplateColumns: "60px 1fr 1fr 120px 120px", gap: 16, alignItems: "center" }}>
+            <span style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--paper-2)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 20 }}>{c.name[0]}</span>
+            <div>
+              <div style={{ fontWeight: 500 }}>{c.name}</div>
+              <div className="mono" style={{ color: "var(--muted)", marginTop: 4 }}>{c.email}</div>
+            </div>
+            <span style={{ fontSize: 13, color: "var(--muted)" }}>{c.count} {c.count === 1 ? "booking" : "bookings"}</span>
+            <span style={{ fontWeight: 500 }}>{formatNaira(c.total)}</span>
+            <button className="btn btn-ghost btn-sm">View →</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { AdminScreen });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/checkout.jsx">
+/* Ayofemi Studios — Checkout (sandbox payment UI) */
+
+function CheckoutScreen() {
+  const { booking, setBookings, bookings, go, setToast, user } = useApp();
+  const [gateway, setGateway] = React.useState("stripe");
+  const [card, setCard] = React.useState({ number: "4084 0840 8408 4081", expiry: "09/27", cvv: "408", name: user?.name || "" });
+  const [phase, setPhase] = React.useState("form"); // form | processing | otp | done
+  const [otp, setOtp] = React.useState("");
+
+  const service = SERVICES_CATALOG.find(s => s.id === booking.service);
+  const deposit = Math.round((booking.total || 0) * 0.3);
+
+  React.useEffect(() => {
+    if (!booking.service) go("booking");
+  }, []);
+
+  const pay = () => {
+    setPhase("processing");
+    setTimeout(() => setPhase("otp"), 1400);
+  };
+
+  const verify = () => {
+    setPhase("processing");
+    setTimeout(() => {
+      setBookings([...bookings, { ...booking, status: "confirmed", paidAt: new Date().toISOString() }]);
+      setPhase("done");
+      setTimeout(() => go("confirmation"), 900);
+    }, 1200);
+  };
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 32px 80px" }}>
+      <button onClick={() => go("booking")} className="mono" style={{ color: "var(--muted)", marginBottom: 24 }}>← Back to booking</button>
+
+      <div style={{ marginBottom: 40 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● Secure checkout · sandbox mode</div>
+        <h1 className="display" style={{ fontSize: "clamp(48px, 6vw, 80px)", margin: 0 }}>
+          One <span style={{ fontStyle: "italic", color: "var(--primary)" }}>last</span> step.
+        </h1>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 420px", gap: 48 }}>
+        <div>
+          {/* Gateway selector */}
+          <div style={{ marginBottom: 32 }}>
+            <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>Payment gateway</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              {[
+                { id: "stripe", name: "Stripe", sub: "Cards · Apple Pay · Google Pay" },
+                { id: "paystack", name: "Paystack", sub: "Cards · Bank · Transfer" },
+              ].map(g => (
+                <button key={g.id} onClick={() => setGateway(g.id)}
+                  style={{
+                    padding: 20, borderRadius: 6,
+                    border: `1px solid ${gateway === g.id ? "var(--ink)" : "var(--line)"}`,
+                    background: gateway === g.id ? "var(--paper-2)" : "transparent",
+                    textAlign: "left", cursor: "pointer", display: "flex", flexDirection: "column", gap: 4,
+                  }}>
+                  <div style={{ fontWeight: 600, fontSize: 16 }}>{g.name}</div>
+                  <div className="mono" style={{ color: "var(--muted)" }}>{g.sub}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Payment form */}
+          <div className="card" style={{ padding: 32 }}>
+            {phase === "form" && (
+              <>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+                  <h2 className="display" style={{ fontSize: 28, margin: 0 }}>Card details</h2>
+                  <span className="mono" style={{ color: "var(--muted)" }}>🔒 Sandbox · no real charge</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                  <Field label="Card number" value={card.number} onChange={v => setCard({ ...card, number: v })} placeholder="4084 0840 8408 4081" />
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 2fr", gap: 16 }}>
+                    <Field label="Expiry" value={card.expiry} onChange={v => setCard({ ...card, expiry: v })} placeholder="MM/YY" />
+                    <Field label="CVV" value={card.cvv} onChange={v => setCard({ ...card, cvv: v })} placeholder="408" />
+                    <Field label="Name on card" value={card.name} onChange={v => setCard({ ...card, name: v })} placeholder="—" />
+                  </div>
+                </div>
+
+                <div style={{ marginTop: 24, padding: 14, background: "var(--paper-2)", borderRadius: 4, fontSize: 12, color: "var(--muted)", lineHeight: 1.6 }}>
+                  Test card <code style={{ fontFamily: "var(--font-mono)" }}>4084 0840 8408 4081</code> · any future expiry · CVV <code style={{ fontFamily: "var(--font-mono)" }}>408</code>. This is a sandbox flow — no funds move.
+                </div>
+
+                <div style={{ marginTop: 24, display: "flex", gap: 12, alignItems: "center" }}>
+                  <button onClick={pay} className="btn btn-primary btn-lg" style={{ flex: 1 }}>
+                    Pay {formatNaira(deposit)} now →
+                  </button>
+                </div>
+              </>
+            )}
+
+            {phase === "processing" && (
+              <div style={{ padding: "60px 0", textAlign: "center" }}>
+                <div className="spinner" style={{ width: 32, height: 32, borderWidth: 3, color: "var(--primary)" }}></div>
+                <div className="display" style={{ fontSize: 28, marginTop: 24 }}>Talking to {gateway === "stripe" ? "Stripe" : "Paystack"}…</div>
+                <div className="mono" style={{ color: "var(--muted)", marginTop: 8 }}>● Sandbox transaction in flight</div>
+              </div>
+            )}
+
+            {phase === "otp" && (
+              <div>
+                <div className="mono" style={{ color: "var(--muted)", marginBottom: 8 }}>● 3-D Secure</div>
+                <h2 className="display" style={{ fontSize: 28, margin: "0 0 12px" }}>Enter the OTP</h2>
+                <p style={{ color: "var(--muted)", margin: "0 0 24px", fontSize: 14 }}>
+                  Your bank sent a code to the number ending in <strong>**42</strong>. In sandbox, use <code style={{ fontFamily: "var(--font-mono)", background: "var(--paper-2)", padding: "2px 6px", borderRadius: 3 }}>123456</code>.
+                </p>
+                <input className="input input-box" value={otp} onChange={e => setOtp(e.target.value)} placeholder="6-digit code"
+                  maxLength={6} style={{ fontFamily: "var(--font-mono)", fontSize: 22, letterSpacing: "0.4em", textAlign: "center" }} />
+                <button onClick={verify} className="btn btn-primary btn-lg"
+                  disabled={otp.length < 4}
+                  style={{ marginTop: 20, width: "100%", opacity: otp.length < 4 ? 0.4 : 1 }}>
+                  Verify & confirm →
+                </button>
+              </div>
+            )}
+
+            {phase === "done" && (
+              <div style={{ padding: "40px 0", textAlign: "center" }}>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--primary)", color: "var(--primary-ink)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>✓</div>
+                <div className="display" style={{ fontSize: 36, marginTop: 20 }}>Paid.</div>
+                <div className="mono" style={{ color: "var(--muted)", marginTop: 8 }}>Redirecting…</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Order summary */}
+        <aside>
+          <div className="card" style={{ padding: 28, position: "sticky", top: 100 }}>
+            <div className="mono" style={{ color: "var(--muted)", marginBottom: 16 }}>● Order summary</div>
+
+            <div style={{ marginBottom: 20 }}>
+              <div className="display" style={{ fontSize: 24 }}>{service?.title}</div>
+              <div className="mono" style={{ color: "var(--muted)", marginTop: 6 }}>{booking.dateLabel} · {booking.time}</div>
+            </div>
+
+            <hr className="divider" />
+
+            <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
+              <Line label={service?.title} value={formatNaira(service?.price || 0)} />
+              {(booking.addons || []).map(aid => {
+                const a = ADDONS.find(x => x.id === aid);
+                return <Line key={aid} label={a.title} value={formatNaira(a.price)} />;
+              })}
+            </div>
+
+            <hr className="divider" />
+
+            <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 10, fontSize: 14 }}>
+              <Line label="Subtotal" value={formatNaira(booking.total || 0)} />
+              <Line label="VAT (20%)" value="Included" muted />
+              <Line label="Deposit (30%)" value={formatNaira(deposit)} bold />
+              <Line label="Balance due at session" value={formatNaira((booking.total || 0) - deposit)} muted />
+            </div>
+
+            <hr className="divider" />
+
+            <div style={{ paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <span className="mono" style={{ color: "var(--muted)" }}>Pay today</span>
+              <span className="display" style={{ fontSize: 40 }}>{formatNaira(deposit)}</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+function Line({ label, value, bold, muted }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", color: muted ? "var(--muted)" : "var(--ink)", fontWeight: bold ? 600 : 400 }}>
+      <span>{label}</span>
+      <span>{value}</span>
+    </div>
+  );
+}
+
+Object.assign(window, { CheckoutScreen });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="screens/confirmation.jsx">
+/* Ayofemi Studios — Email confirmation screen */
+
+function ConfirmationScreen() {
+  const { booking, go } = useApp();
+  const service = SERVICES_CATALOG.find(s => s.id === booking.service);
+  const [emailSent, setEmailSent] = React.useState(false);
+
+  React.useEffect(() => {
+    const t = setTimeout(() => setEmailSent(true), 600);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div className="fade-in" style={{ maxWidth: 1400, margin: "0 auto", padding: "60px 32px 100px" }}>
+      <div style={{ marginBottom: 48 }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 16 }}>● Booking #{booking.id} · confirmed</div>
+        <h1 className="display" style={{ fontSize: "clamp(72px, 10vw, 144px)", margin: 0 }}>
+          See you on <span style={{ fontStyle: "italic", color: "var(--primary)" }}>{booking.dateLabel?.split(",")[0]}</span>.
+        </h1>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 64 }}>
+        {/* Email mockup */}
+        <div>
+          <div className="mono" style={{ color: "var(--muted)", marginBottom: 16 }}>● A confirmation just landed in your inbox</div>
+          <div className="card" style={{ overflow: "hidden", boxShadow: "0 20px 60px -20px rgba(0,0,0,0.15)" }}>
+            {/* Email header */}
+            <div style={{ padding: "20px 24px", borderBottom: "1px solid var(--line)", background: "var(--paper-2)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div className="mono" style={{ color: "var(--muted)" }}>
+                  {emailSent ? "✓ Sent via SendGrid · sandbox" : "Sending…"}
+                </div>
+                <div className="mono" style={{ color: "var(--muted)" }}>{new Date().toLocaleString("en-GB", { hour: "2-digit", minute: "2-digit" })}</div>
+              </div>
+              <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "60px 1fr", gap: 12, alignItems: "center" }}>
+                <span style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--ink)", color: "var(--paper)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 22, fontStyle: "italic" }}>A</span>
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <span style={{ fontWeight: 600, fontSize: 14 }}>Ayofemi Studios</span>
+                    <span className="mono" style={{ color: "var(--muted)" }}>hello@ayofemi.studio</span>
+                  </div>
+                  <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 4 }}>to {booking.email}</div>
+                </div>
+              </div>
+              <div style={{ marginTop: 16, fontSize: 17, fontWeight: 500 }}>Your sitting is confirmed — {booking.dateLabel}</div>
+            </div>
+
+            {/* Email body */}
+            <div style={{ padding: 32 }}>
+              <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.65 }}>Dear {booking.name?.split(" ")[0] || "friend"},</p>
+              <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.65 }}>
+                Thank you — your <strong>{service?.title?.toLowerCase()}</strong> is confirmed for <strong>{booking.dateLabel}</strong> at <strong>{booking.time}</strong>. We've added it to the studio calendar.
+              </p>
+
+              <div style={{ background: "var(--paper-2)", padding: 20, borderRadius: 6, margin: "20px 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <EmailDetail label="Booking #" value={booking.id} />
+                <EmailDetail label="Service" value={service?.title} />
+                <EmailDetail label="Date" value={booking.dateLabel} />
+                <EmailDetail label="Time" value={booking.time} />
+                <EmailDetail label="Studio" value="Unit 4, Rye Lane, Peckham, London SE15" />
+                <EmailDetail label="Deposit paid" value={formatNaira(Math.round((booking.total || 0) * 0.3))} />
+              </div>
+
+              <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.65 }}>
+                A short pre-session questionnaire will arrive a week before your sitting. If anything changes on your side, just reply to this thread — we'll figure it out.
+              </p>
+
+              <p style={{ margin: "0 0 8px", fontSize: 15, lineHeight: 1.65 }}>Until then,</p>
+              <p style={{ margin: 0, fontSize: 20, fontFamily: "var(--font-display)", fontStyle: "italic" }}>Ayọfẹmi & the studio team</p>
+
+              <div style={{ marginTop: 32, paddingTop: 24, borderTop: "1px solid var(--line)", display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <button className="btn btn-dark btn-sm">Add to calendar</button>
+                <button className="btn btn-ghost btn-sm">Reschedule</button>
+                <button className="btn btn-ghost btn-sm">View booking</button>
+              </div>
+            </div>
+
+            <div style={{ padding: "14px 24px", borderTop: "1px solid var(--line)", background: "var(--paper-2)", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", display: "flex", justifyContent: "space-between" }}>
+              <span>Ayofemi Studios · London</span>
+              <span>Unsubscribe · Preferences</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Next steps */}
+        <aside style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+          <div>
+            <div className="mono" style={{ color: "var(--muted)", marginBottom: 12 }}>● What happens next</div>
+            <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 18 }}>
+              <Step num="01" title="Confirmation email" sub="Sent now — also check spam, just in case." done />
+              <Step num="02" title="Pre-session call" sub="We'll reach out 5 days before to talk wardrobe and intent." />
+              <Step num="03" title="The sitting" sub={`${booking.dateLabel} at ${booking.time}, at the Peckham studio.`} />
+              <Step num="04" title="Gallery delivery" sub="Within 10 working days, in your client account." />
+            </ol>
+          </div>
+
+          <hr className="divider" />
+
+          <div>
+            <div className="display" style={{ fontSize: 28, marginBottom: 8 }}>While you wait —</div>
+            <p style={{ color: "var(--muted)", marginTop: 0, marginBottom: 20, fontSize: 14, lineHeight: 1.55 }}>
+              Browse recent frames or set up your client account so the gallery has somewhere to land.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <button onClick={() => go("dashboard")} className="btn btn-primary">Go to your account →</button>
+              <button onClick={() => go("portfolio")} className="btn btn-ghost">Browse the archive</button>
+              <button onClick={() => go("home")} className="btn btn-ghost">Back to home</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+function EmailDetail({ label, value }) {
+  return (
+    <div>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 14, fontWeight: 500 }}>{value}</div>
+    </div>
+  );
+}
+
+function Step({ num, title, sub, done }) {
+  return (
+    <li style={{ display: "grid", gridTemplateColumns: "40px 1fr", gap: 16, paddingBottom: 18, borderBottom: "1px solid var(--line)" }}>
+      <div style={{
+        width: 32, height: 32, borderRadius: "50%",
+        background: done ? "var(--primary)" : "transparent",
+        color: done ? "var(--primary-ink)" : "var(--ink)",
+        border: done ? "1px solid var(--primary)" : "1px solid var(--line)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontFamily: "var(--font-mono)", fontSize: 11,
+      }}>{done ? "✓" : num}</div>
+      <div>
+        <div style={{ fontSize: 15, fontWeight: 500 }}>{title}</div>
+        <div style={{ fontSize: 13, color: "var(--muted)", marginTop: 4, lineHeight: 1.5 }}>{sub}</div>
+      </div>
+    </li>
+  );
+}
+
+Object.assign(window, { ConfirmationScreen });
+
+</script>
+<script type="text/babel" data-presets="react" data-src="app.jsx">
+/* Ayofemi Studios — App shell, routing, state, tweaks */
+const { useState: useS, useEffect: useE, useMemo: useM } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "oxblood",
+  "fonts": "editorial",
+  "mode": "light",
+  "bookingStyle": "stepper",
+  "heroVariant": "editorial"
+}/*EDITMODE-END*/;
+
+// Seed bookings for demo
+const SEED_BOOKINGS = [
+  { id: "AYO-4821", name: "Folake Okonkwo", email: "folake@onile.studio", service: "wedding-full", date: "2026-06-12", dateLabel: "Jun 12, 2026", time: "10:30", total: 1650, status: "confirmed", addons: ["drone"] },
+  { id: "AYO-4818", name: "Kemi Adesanya", email: "kemi@adesanya.co", service: "wedding-luxury", date: "2026-07-04", dateLabel: "Jul 4, 2026", time: "09:00", total: 3100, status: "pending", addons: ["rush"] },
+  { id: "AYO-4815", name: "Tom Bardsley", email: "tom@bardsley.works", service: "headshots", date: "2026-06-02", dateLabel: "Jun 2, 2026", time: "14:30", total: 75, status: "confirmed" },
+  { id: "AYO-4810", name: "Ada Eze", email: "ada@iridae.studio", service: "event", date: "2026-05-30", dateLabel: "May 30, 2026", time: "13:00", total: 500, status: "completed", addons: ["album"] },
+  { id: "AYO-4805", name: "Folake Okonkwo", email: "folake@onile.studio", service: "portrait", date: "2026-04-18", dateLabel: "Apr 18, 2026", time: "16:00", total: 150, status: "completed" },
+];
+
+function App() {
+  // Tweaks
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // Routing
+  const [route, setRoute] = useS("home");
+  const go = (r) => { setRoute(r); window.scrollTo({ top: 0, behavior: "instant" }); };
+
+  // Auth
+  const [user, setUser] = useS(null);
+  const signIn = (u) => setUser(u);
+  const signOut = () => { setUser(null); go("home"); };
+
+  // Booking state
+  const [booking, setBooking] = useS({});
+  const [bookings, setBookings] = useS(SEED_BOOKINGS);
+
+  // Services (admin-editable)
+  const [services, setServices] = useS(SERVICES_CATALOG);
+
+  // Availability (admin-editable)
+  const [availability, setAvailability] = useS({});
+
+  // Toast
+  const [toast, setToast] = useS(null);
+  useE(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2400);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  // Apply palette/fonts/mode to <html>
+  useE(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-palette", tweaks.palette);
+    root.setAttribute("data-fonts", tweaks.fonts);
+    root.setAttribute("data-mode", tweaks.mode);
+  }, [tweaks.palette, tweaks.fonts, tweaks.mode]);
+
+  // Helper: jump to booking with a pre-selected service
+  const goWithService = (serviceId) => {
+    setBooking({ ...booking, service: serviceId });
+    go("booking");
+  };
+
+  const ctx = {
+    route, go, goWithService,
+    user, signIn, signOut,
+    booking, setBooking,
+    bookings, setBookings,
+    services, setServices,
+    availability, setAvailability,
+    toast, setToast,
+    tweaks, setTweak,
+  };
+
+  return (
+    <AppContext.Provider value={ctx}>
+      <div className="app-shell" data-screen-label={"Screen: " + route}>
+        {route !== "auth" && <NavBar />}
+        <main style={{ flex: 1 }}>
+          {route === "home" && <HomeScreen heroVariant={tweaks.heroVariant} />}
+          {route === "portfolio" && <PortfolioScreen />}
+          {route === "booking" && <BookingScreen style={tweaks.bookingStyle} />}
+          {route === "auth" && <AuthScreen />}
+          {route === "dashboard" && <DashboardScreen />}
+          {route === "admin" && <AdminScreen />}
+          {route === "checkout" && <CheckoutScreen />}
+          {route === "confirmation" && <ConfirmationScreen />}
+        </main>
+        {!["auth", "admin", "checkout"].includes(route) && <Footer />}
+      </div>
+
+      <Toast toast={toast} />
+
+      <AyofemiTweaks tweaks={tweaks} setTweak={setTweak} go={go} route={route} />
+    </AppContext.Provider>
+  );
+}
+
+// ─── Tweaks panel ────────────────────────────────────────────────────────
+function AyofemiTweaks({ tweaks, setTweak, go, route }) {
+  return (
+    <TweaksPanel>
+      <TweakSection label="Aesthetic">
+        <TweakSelect
+          label="Palette"
+          value={tweaks.palette}
+          onChange={(v) => setTweak("palette", v)}
+          options={[
+            { value: "oxblood", label: "Oxblood · burgundy + cream + amber" },
+            { value: "midnight", label: "Midnight · ink + champagne + coral" },
+            { value: "ochre", label: "Ochre · earth + bone + emerald" },
+          ]}
+        />
+        <TweakSelect
+          label="Font pairing"
+          value={tweaks.fonts}
+          onChange={(v) => setTweak("fonts", v)}
+          options={[
+            { value: "editorial", label: "Editorial · Instrument Serif + DM Sans" },
+            { value: "modernist", label: "Modernist · Space Grotesk" },
+            { value: "classical", label: "Classical · Playfair + Work Sans" },
+          ]}
+        />
+        <TweakRadio
+          label="Mode"
+          value={tweaks.mode}
+          onChange={(v) => setTweak("mode", v)}
+          options={[
+            { value: "light", label: "Light" },
+            { value: "dark", label: "Dark" },
+          ]}
+        />
+      </TweakSection>
+
+      <TweakSection label="Layout">
+        <TweakSelect
+          label="Hero variant"
+          value={tweaks.heroVariant}
+          onChange={(v) => { setTweak("heroVariant", v); go("home"); }}
+          options={[
+            { value: "editorial", label: "Editorial · oversized type" },
+            { value: "split", label: "Split · image + copy" },
+            { value: "marquee", label: "Marquee · scrolling frames" },
+          ]}
+        />
+        <TweakRadio
+          label="Booking flow"
+          value={tweaks.bookingStyle}
+          onChange={(v) => { setTweak("bookingStyle", v); if (route === "booking") go("booking"); }}
+          options={[
+            { value: "stepper", label: "Stepper" },
+            { value: "single", label: "Single page" },
+          ]}
+        />
+      </TweakSection>
+
+      <TweakSection label="Jump to a screen">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+          {[
+            ["home", "Home"],
+            ["portfolio", "Portfolio"],
+            ["booking", "Booking"],
+            ["auth", "Sign in"],
+            ["dashboard", "Dashboard"],
+            ["admin", "Admin"],
+            ["checkout", "Checkout"],
+            ["confirmation", "Confirmation"],
+          ].map(([id, label]) => (
+            <button key={id} onClick={() => go(id)}
+              style={{
+                padding: "8px 10px", borderRadius: 4,
+                border: "1px solid " + (route === id ? "var(--ink)" : "var(--line)"),
+                background: route === id ? "var(--ink)" : "transparent",
+                color: route === id ? "var(--paper)" : "var(--ink)",
+                fontSize: 12, textAlign: "left", cursor: "pointer",
+              }}>{label}</button>
+          ))}
+        </div>
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+// Mount
+ReactDOM.createRoot(document.getElementById("app")).render(<App />);
+
+</script>
 </body>
 </html>

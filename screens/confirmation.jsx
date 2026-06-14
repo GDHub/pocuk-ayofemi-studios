@@ -30,7 +30,7 @@ function ConfirmationScreen() {
                 <div className="mono" style={{ color: "var(--muted)" }}>
                   {emailSent ? "✓ Sent via SendGrid · sandbox" : "Sending…"}
                 </div>
-                <div className="mono" style={{ color: "var(--muted)" }}>{new Date().toLocaleString("en-NG", { hour: "2-digit", minute: "2-digit" })}</div>
+                <div className="mono" style={{ color: "var(--muted)" }}>{new Date().toLocaleString("en-GB", { hour: "2-digit", minute: "2-digit" })}</div>
               </div>
               <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "60px 1fr", gap: 12, alignItems: "center" }}>
                 <span style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--ink)", color: "var(--paper)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 22, fontStyle: "italic" }}>A</span>
@@ -57,7 +57,7 @@ function ConfirmationScreen() {
                 <EmailDetail label="Service" value={service?.title} />
                 <EmailDetail label="Date" value={booking.dateLabel} />
                 <EmailDetail label="Time" value={booking.time} />
-                <EmailDetail label="Studio" value="12 Awolowo Rd, Ikoyi" />
+                <EmailDetail label="Studio" value="Unit 4, Rye Lane, Peckham, London SE15" />
                 <EmailDetail label="Deposit paid" value={formatNaira(Math.round((booking.total || 0) * 0.3))} />
               </div>
 
@@ -76,7 +76,7 @@ function ConfirmationScreen() {
             </div>
 
             <div style={{ padding: "14px 24px", borderTop: "1px solid var(--line)", background: "var(--paper-2)", fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--muted)", display: "flex", justifyContent: "space-between" }}>
-              <span>Ayofemi Studios · Lagos</span>
+              <span>Ayofemi Studios · London</span>
               <span>Unsubscribe · Preferences</span>
             </div>
           </div>
@@ -89,7 +89,7 @@ function ConfirmationScreen() {
             <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 18 }}>
               <Step num="01" title="Confirmation email" sub="Sent now — also check spam, just in case." done />
               <Step num="02" title="Pre-session call" sub="We'll reach out 5 days before to talk wardrobe and intent." />
-              <Step num="03" title="The sitting" sub={`${booking.dateLabel} at ${booking.time}, at the Ikoyi studio.`} />
+              <Step num="03" title="The sitting" sub={`${booking.dateLabel} at ${booking.time}, at the Peckham studio.`} />
               <Step num="04" title="Gallery delivery" sub="Within 10 working days, in your client account." />
             </ol>
           </div>

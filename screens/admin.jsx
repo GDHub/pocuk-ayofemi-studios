@@ -185,7 +185,7 @@ function ServiceEditor({ service, onSave, onClose }) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <Field label="Duration" value={s.duration} onChange={v => setS({ ...s, duration: v })} placeholder="1.5 hours" />
             <label className="field">
-              <span className="field-label">Price (₦)</span>
+              <span className="field-label">Price (£)</span>
               <input className="input" type="number" value={s.price} onChange={e => setS({ ...s, price: parseInt(e.target.value || 0) })} />
             </label>
           </div>

@@ -11,11 +11,11 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 
 // Seed bookings for demo
 const SEED_BOOKINGS = [
-  { id: "AYO-4821", name: "Folake Okonkwo", email: "folake@onile.studio", service: "editorial", date: "2026-06-12", dateLabel: "Jun 12, 2026", time: "10:30", total: 250000, status: "confirmed", addons: ["makeup"] },
-  { id: "AYO-4818", name: "Kemi Adesanya", email: "kemi@adesanya.co", service: "wedding", date: "2026-07-04", dateLabel: "Jul 4, 2026", time: "09:00", total: 645000, status: "pending", addons: ["rush"] },
-  { id: "AYO-4815", name: "Tunde Bakare", email: "tunde@bakareworks.com", service: "portrait", date: "2026-06-02", dateLabel: "Jun 2, 2026", time: "14:30", total: 75000, status: "confirmed" },
-  { id: "AYO-4810", name: "Ada Eze", email: "ada@iridae.studio", service: "commercial", date: "2026-05-30", dateLabel: "May 30, 2026", time: "13:00", total: 378000, status: "completed", addons: ["prints"] },
-  { id: "AYO-4805", name: "Folake Okonkwo", email: "folake@onile.studio", service: "portrait", date: "2026-04-18", dateLabel: "Apr 18, 2026", time: "16:00", total: 75000, status: "completed" },
+  { id: "AYO-4821", name: "Folake Okonkwo", email: "folake@onile.studio", service: "wedding-full", date: "2026-06-12", dateLabel: "Jun 12, 2026", time: "10:30", total: 1650, status: "confirmed", addons: ["drone"] },
+  { id: "AYO-4818", name: "Kemi Adesanya", email: "kemi@adesanya.co", service: "wedding-luxury", date: "2026-07-04", dateLabel: "Jul 4, 2026", time: "09:00", total: 3100, status: "pending", addons: ["rush"] },
+  { id: "AYO-4815", name: "Tom Bardsley", email: "tom@bardsley.works", service: "headshots", date: "2026-06-02", dateLabel: "Jun 2, 2026", time: "14:30", total: 75, status: "confirmed" },
+  { id: "AYO-4810", name: "Ada Eze", email: "ada@iridae.studio", service: "event", date: "2026-05-30", dateLabel: "May 30, 2026", time: "13:00", total: 500, status: "completed", addons: ["album"] },
+  { id: "AYO-4805", name: "Folake Okonkwo", email: "folake@onile.studio", service: "portrait", date: "2026-04-18", dateLabel: "Apr 18, 2026", time: "16:00", total: 150, status: "completed" },
 ];
 
 function App() {

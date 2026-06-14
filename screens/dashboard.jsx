@@ -28,7 +28,7 @@ function DashboardScreen() {
         <StatCard label="Upcoming" value={upcoming.length} sub="sittings" />
         <StatCard label="Galleries" value={past.length} sub="ready to view" />
         <StatCard label="Prints" value="3" sub="in archive" />
-        <StatCard label="Credit" value="₦0" sub="on account" />
+        <StatCard label="Credit" value="£0" sub="on account" />
       </div>
 
       {/* Upcoming bookings */}
@@ -62,7 +62,7 @@ function DashboardScreen() {
         <div style={{ display: "flex", flexDirection: "column", gap: 0, borderTop: "1px solid var(--line)" }}>
           <Activity icon="✦" text="Gallery for the March sitting is ready" time="2 days ago" />
           <Activity icon="✦" text="Your archival prints have shipped" time="1 week ago" />
-          <Activity icon="✦" text="Payment received · ₦75,000" time="3 weeks ago" />
+          <Activity icon="✦" text="Payment received · £150" time="3 weeks ago" />
         </div>
       </section>
     </div>
