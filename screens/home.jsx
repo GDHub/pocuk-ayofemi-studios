@@ -23,6 +23,7 @@ function HeroEditorial({ onCta }) {
   return (
     <section style={{ maxWidth: 1400, margin: "0 auto", padding: "80px 32px 120px" }}>
       <div className="mono" style={{ color: "var(--muted)", marginBottom: 40 }}>● London · est. 2019 · West African & Western portraiture</div>
+      <div className="mono" style={{ color: "var(--muted)", marginBottom: 40 }}>● London · est. 2019 · West African & Western portraiture</div>
       <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 48, alignItems: "end" }}>
         <h1 className="display" style={{ fontSize: "clamp(72px, 11vw, 168px)", margin: 0, letterSpacing: "-0.03em" }}>
           Light, <span style={{ fontStyle: "italic", color: "var(--primary)" }}>held</span><br />
@@ -31,6 +32,7 @@ function HeroEditorial({ onCta }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           <div className="placeholder" data-label="hero portrait · 4:5" style={{ aspectRatio: "4/5", borderRadius: 6 }}></div>
           <p style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 380, margin: 0 }}>
+            We make pictures that hold up — portraits, editorial commissions, and brand stories for West African and Western families alike, shot on film and digital from our atelier in Peckham, south London.
             We make pictures that hold up — portraits, editorial commissions, and brand stories for West African and Western families alike, shot on film and digital from our atelier in Peckham, south London.
           </p>
           <div style={{ display: "flex", gap: 10 }}>
@@ -51,10 +53,12 @@ function HeroSplit({ onCta }) {
       <div className="placeholder" data-label="hero · full bleed" style={{ minHeight: 600 }}></div>
       <div style={{ padding: "80px 64px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 32 }}>
         <div className="mono" style={{ color: "var(--muted)" }}>● Ayofemi Studios · London</div>
+        <div className="mono" style={{ color: "var(--muted)" }}>● Ayofemi Studios · London</div>
         <h1 className="display" style={{ fontSize: "clamp(56px, 7vw, 104px)", margin: 0 }}>
           A studio for the<br /><span style={{ fontStyle: "italic", color: "var(--primary)" }}>still </span>and the<br />unsayable.
         </h1>
         <p style={{ fontSize: 17, lineHeight: 1.6, maxWidth: 460 }}>
+          Portraits, editorial, weddings, and brand work for West African and Western communities — shot with intention by Ayofemi Adeyemi and a small, considered team.
           Portraits, editorial, weddings, and brand work for West African and Western communities — shot with intention by Ayofemi Adeyemi and a small, considered team.
         </p>
         <div style={{ display: "flex", gap: 10 }}>
@@ -85,6 +89,7 @@ function HeroMarquee({ onCta }) {
   return (
     <section style={{ padding: "80px 0 60px", textAlign: "center" }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+        <div className="mono" style={{ color: "var(--muted)", marginBottom: 32 }}>● Photography · London · West Africa · Worldwide</div>
         <div className="mono" style={{ color: "var(--muted)", marginBottom: 32 }}>● Photography · London · West Africa · Worldwide</div>
         <h1 className="display" style={{ fontSize: "clamp(80px, 13vw, 200px)", margin: 0, letterSpacing: "-0.04em", lineHeight: 0.88 }}>
           We photograph <span style={{ fontStyle: "italic", color: "var(--primary)" }}>quietly,</span><br />
@@ -157,6 +162,7 @@ function FeaturedWork() {
       />
       <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridTemplateRows: "320px 320px", gap: 16 }}>
         <div className="placeholder" data-label="folake · portrait · 2025" style={{ gridRow: "1 / 3" }}></div>
+        <div className="placeholder" data-label="london fashion week"></div>
         <div className="placeholder" data-label="london fashion week"></div>
         <div className="placeholder" data-label="brand · onile"></div>
         <div className="placeholder" data-label="tunde & ada · wedding"></div>

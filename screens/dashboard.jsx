@@ -29,6 +29,7 @@ function DashboardScreen() {
         <StatCard label="Galleries" value={past.length} sub="ready to view" />
         <StatCard label="Prints" value="3" sub="in archive" />
         <StatCard label="Credit" value="£0" sub="on account" />
+        <StatCard label="Credit" value="£0" sub="on account" />
       </div>
 
       {/* Upcoming bookings */}
