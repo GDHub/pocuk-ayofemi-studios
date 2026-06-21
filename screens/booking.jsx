@@ -1,17 +1,28 @@
 /* Ayofemi Studios — Booking flow (stepper + single-page variants) */
 
 const SERVICES_CATALOG = [
-  { id: "portrait", title: "Portrait sitting", duration: "1.5 hours", price: 180, desc: "Studio sitting with up to 30 edited frames", colorTag: "portrait" },
-  { id: "couples", title: "Couple's portraits", duration: "2 hours", price: 280, desc: "Two looks, on location or in studio", colorTag: "couples" },
-  { id: "editorial", title: "Editorial commission", duration: "Half day", price: 650, desc: "Concept, styling consult, full creative direction", colorTag: "editorial" },
-  { id: "commercial", title: "Commercial / lookbook", duration: "Half / full day", price: 900, desc: "Lookbook, product, or campaign photography", colorTag: "commercial" },
-  { id: "wedding", title: "Wedding coverage", duration: "Full day", price: 1950, desc: "From the prep room to the last dance", colorTag: "wedding" },
+  { id: "wedding-half", title: "Wedding — half day", duration: "Up to 5 hours", price: 800, desc: "Ceremony and key moments, one photographer", colorTag: "wedding" },
+  { id: "wedding-full", title: "Wedding — full day", duration: "Full day", price: 1500, desc: "Prep to last dance · £1,500–£2,500 by scope", colorTag: "wedding" },
+  { id: "wedding-luxury", title: "Luxury wedding package", duration: "Full day +", price: 3000, desc: "Two shooters, album & more · £3,000–£5,000+", colorTag: "wedding" },
+  { id: "engagement", title: "Engagement / pre-wedding", duration: "1.5 hours", price: 250, desc: "Relaxed shoot on location or in studio", colorTag: "couples" },
+  { id: "portrait", title: "Portrait session", duration: "1 hour", price: 150, desc: "Studio sitting with edited frames", colorTag: "portrait" },
+  { id: "family", title: "Family photography", duration: "1 hour", price: 180, desc: "Relaxed family session, all ages", colorTag: "portrait" },
+  { id: "maternity", title: "Maternity photography", duration: "1 hour", price: 180, desc: "Studio or location maternity shoot", colorTag: "portrait" },
+  { id: "graduation", title: "Graduation photography", duration: "45 mins", price: 120, desc: "Gowns, portraits, and the proud moment", colorTag: "portrait" },
+  { id: "birthday", title: "Birthday photography", duration: "2 hours", price: 250, desc: "Parties and milestone celebrations", colorTag: "editorial" },
+  { id: "event", title: "Event photography", duration: "2 hours", price: 350, desc: "Coverage of socials and gatherings", colorTag: "editorial" },
+  { id: "corporate-event", title: "Corporate event", duration: "Half day", price: 500, desc: "Conferences, launches, and away-days", colorTag: "commercial" },
+  { id: "headshots", title: "Corporate headshots", duration: "Per person", price: 75, desc: "Clean, consistent team portraits", colorTag: "commercial" },
+  { id: "product", title: "Product photography", duration: "Per image", price: 15, desc: "E-commerce & catalogue · £15–£30 / image", colorTag: "commercial" },
 ];
 
 const ADDONS = [
-  { id: "rush", title: "Rush delivery", desc: "Final selects in 72 hours", price: 90 },
-  { id: "makeup", title: "Hair & makeup", desc: "On-set artist for 2 hours", price: 140 },
-  { id: "prints", title: "Archival prints", desc: "Three 8×10 museum prints", price: 75 },
+  { id: "hour", title: "Additional hour coverage", desc: "Extend the shoot · £100–£150 / hour", price: 100 },
+  { id: "drone", title: "Drone photography", desc: "Aerial coverage · £150–£300", price: 150 },
+  { id: "album", title: "Photo album", desc: "Hand-bound album · from £150", price: 150 },
+  { id: "canvas", title: "Canvas print", desc: "Framed canvas · from £40", price: 40 },
+  { id: "extra", title: "Extra edited images", desc: "Per additional edit · £10–£20", price: 15 },
+  { id: "rush", title: "Rush delivery", desc: "Final selects in 72 hours", price: 100 },
 ];
 
 function nextDays(n) {
